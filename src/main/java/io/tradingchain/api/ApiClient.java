@@ -1,5 +1,7 @@
 package io.tradingchain.api;
 
+import io.tradingchain.api.asset.AssetTrustReq;
+import io.tradingchain.api.asset.AssetTrustResp;
 import io.tradingchain.api.key.*;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
@@ -235,5 +237,18 @@ public class ApiClient {
     final String path = "/api/bindLoginKey";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(BindLoginKeysResp.class);
+  }
+
+  /**
+   * 信任单个资产接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public AssetTrustResp assetTrust(AssetTrustReq req) throws Exception {
+    final String path = "/find/assetTrust";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(AssetTrustResp.class);
   }
 }

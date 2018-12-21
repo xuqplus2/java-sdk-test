@@ -14,6 +14,8 @@ import io.tradingchain.api.register.BeforeRegisterReq;
 import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
 import io.tradingchain.api.register.RegisterResp;
+import io.tradingchain.api.trade.GetIntervalListReq;
+import io.tradingchain.api.trade.GetIntervalListResp;
 import io.tradingchain.api.user.IsUserExistsReq;
 import io.tradingchain.api.user.IsUserExistsResp;
 import io.tradingchain.util.AnnotationUtil;
@@ -265,5 +267,18 @@ public class ApiClient {
     final String path = "/find/assetTrustList";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(AssetsTrustResp.class);
+  }
+
+  /**
+   * 获取24小时交易量接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public GetIntervalListResp getIntervalList(GetIntervalListReq req) throws Exception {
+    final String path = "/find/getIntervalList";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(GetIntervalListResp.class);
   }
 }

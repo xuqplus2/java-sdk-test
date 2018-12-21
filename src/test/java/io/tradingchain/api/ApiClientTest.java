@@ -12,6 +12,8 @@ import io.tradingchain.api.register.BeforeRegisterReq;
 import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
 import io.tradingchain.api.register.RegisterResp;
+import io.tradingchain.api.trade.GetIntervalListReq;
+import io.tradingchain.api.trade.GetIntervalListResp;
 import io.tradingchain.api.user.IsUserExistsReq;
 import io.tradingchain.api.user.IsUserExistsResp;
 import org.junit.Before;
@@ -135,6 +137,13 @@ public class ApiClientTest {
                     .addAsset(new AssetPair("USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"))
                     .addAsset(new AssetPair("BTC", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"))
     );
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void getIntervalList() throws Exception {
+    GetIntervalListResp resp = ApiClient.getInstance()
+            .getIntervalList(new GetIntervalListReq("USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "BTC", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

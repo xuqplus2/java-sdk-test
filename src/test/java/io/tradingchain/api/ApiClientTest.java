@@ -1,8 +1,7 @@
 package io.tradingchain.api;
 
 import com.alibaba.fastjson.JSON;
-import io.tradingchain.api.asset.AssetTrustReq;
-import io.tradingchain.api.asset.AssetTrustResp;
+import io.tradingchain.api.asset.*;
 import io.tradingchain.api.key.*;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
@@ -126,6 +125,16 @@ public class ApiClientTest {
   public void assetTrust() throws Exception {
     AssetTrustResp resp = ApiClient.getInstance()
             .assetTrust(new AssetTrustReq("test", "test", "xx", "xx", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void assetsTrust() throws Exception {
+    AssetsTrustResp resp = ApiClient.getInstance().assetsTrust(
+            new AssetsTrustReq("test", "xx")
+                    .addAsset(new AssetPair("USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"))
+                    .addAsset(new AssetPair("BTC", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"))
+    );
     System.err.println(JSON.toJSONString(resp));
   }
 }

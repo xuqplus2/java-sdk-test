@@ -1,5 +1,6 @@
 package io.tradingchain.util;
 
+import com.alibaba.fastjson.JSON;
 import io.tradingchain.annotation.ReqParam;
 
 import java.lang.reflect.Field;
@@ -20,7 +21,8 @@ public class AnnotationUtil {
           throw new Exception(String.format("请求对象[%s]的%s字段不能为空", clazz.getName(), null == reqParam.comment() ? field.getName() : String.format("%s[%s]", reqParam.comment(), field.getName())));
         }
       }
-      if (null != field.get(req)) data.put(field.getName(), field.get(req));
+      if (null != field.get(req))
+        data.put(field.getName(), field.get(req) instanceof String ? field.get(req) : JSON.toJSONString(field.get(req)));
     }
     return new HttpUtil.Request(url, data, secret);
   }

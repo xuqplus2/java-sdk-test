@@ -2,6 +2,8 @@ package io.tradingchain.api;
 
 import io.tradingchain.api.asset.AssetTrustReq;
 import io.tradingchain.api.asset.AssetTrustResp;
+import io.tradingchain.api.asset.AssetsTrustReq;
+import io.tradingchain.api.asset.AssetsTrustResp;
 import io.tradingchain.api.key.*;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
@@ -250,5 +252,18 @@ public class ApiClient {
     final String path = "/find/assetTrust";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(AssetTrustResp.class);
+  }
+
+  /**
+   * 资产列表信任接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public AssetsTrustResp assetsTrust(AssetsTrustReq req) throws Exception {
+    final String path = "/find/assetTrustList";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(AssetsTrustResp.class);
   }
 }

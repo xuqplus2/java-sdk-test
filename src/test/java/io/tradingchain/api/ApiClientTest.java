@@ -218,9 +218,8 @@ public class ApiClientTest {
 
   @Test
   public void userTradesHistory() throws Exception {
-    // todo, size>66 时查不到数据
     UserTradesHistoryResp resp = ApiClient.getInstance()
-            .userTradesHistory(new UserTradesHistoryReq("15921863921", "12345678", 66));
+            .userTradesHistory(new UserTradesHistoryReq("15921863921", "12345678", 200));
     System.err.println(JSON.toJSONString(resp));
   }
 }

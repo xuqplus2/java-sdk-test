@@ -24,21 +24,16 @@ public class UserTradesHistoryReq {
     this.username = username;
     this.password = password;
     this.size = size;
-    this.cursor = cursor;
+    this.cursor = null == cursor ? "" : cursor;
     this.order = order;
   }
 
   public UserTradesHistoryReq(String username, String password, Integer size, String order) {
-    this.username = username;
-    this.password = password;
-    this.size = size;
-    this.order = order;
+    this(username, password, size, "", order);
   }
 
   public UserTradesHistoryReq(String username, String password, Integer size) {
-    this.username = username;
-    this.password = password;
-    this.size = size;
+    this(username, password, size, "desc");
   }
 
   public UserTradesHistoryReq setUsername(String username) {

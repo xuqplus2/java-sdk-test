@@ -5,6 +5,8 @@ import io.tradingchain.api.asset.AssetTrustResp;
 import io.tradingchain.api.asset.AssetsTrustReq;
 import io.tradingchain.api.asset.AssetsTrustResp;
 import io.tradingchain.api.key.*;
+import io.tradingchain.api.kline.KLineReq;
+import io.tradingchain.api.kline.KLineResp;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
 import io.tradingchain.api.password.*;
@@ -318,5 +320,18 @@ public class ApiClient {
     final String path = "/find/trades";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(LatestTradesResp.class);
+  }
+
+  /**
+   * K线接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public KLineResp kLine(KLineReq req) throws Exception {
+    final String path = "/find/k_line";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(KLineResp.class);
   }
 }

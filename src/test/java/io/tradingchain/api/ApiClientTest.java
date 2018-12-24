@@ -3,6 +3,8 @@ package io.tradingchain.api;
 import com.alibaba.fastjson.JSON;
 import io.tradingchain.api.asset.*;
 import io.tradingchain.api.key.*;
+import io.tradingchain.api.kline.KLineReq;
+import io.tradingchain.api.kline.KLineResp;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
 import io.tradingchain.api.password.*;
@@ -167,6 +169,13 @@ public class ApiClientTest {
   public void latestTrades() throws Exception {
     LatestTradesResp resp = ApiClient.getInstance()
             .latestTrades(new LatestTradesReq("USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "BTC", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", 200));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void kLine() throws Exception {
+    KLineResp resp = ApiClient.getInstance()
+            .kLine(new KLineReq("XRP", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", KLineReq.RangeTime.OneHour, 1535338800000L, 1535338800000L));
     System.err.println(JSON.toJSONString(resp));
   }
 }

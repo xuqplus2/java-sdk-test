@@ -14,10 +14,7 @@ import io.tradingchain.api.register.BeforeRegisterReq;
 import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
 import io.tradingchain.api.register.RegisterResp;
-import io.tradingchain.api.trade.GetHistoryTradesReq;
-import io.tradingchain.api.trade.GetHistoryTradesResp;
-import io.tradingchain.api.trade.GetIntervalListReq;
-import io.tradingchain.api.trade.GetIntervalListResp;
+import io.tradingchain.api.trade.*;
 import io.tradingchain.api.user.IsUserExistsReq;
 import io.tradingchain.api.user.IsUserExistsResp;
 import io.tradingchain.util.AnnotationUtil;
@@ -294,7 +291,32 @@ public class ApiClient {
   public GetHistoryTradesResp getHistoryTrades(GetHistoryTradesReq req) throws Exception {
     final String path = "/find/history/getTrades";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    System.err.println(response);
     return response.castTo(GetHistoryTradesResp.class);
+  }
+
+  /**
+   * 交易深度接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public TradeDepthResp tradeDepth(TradeDepthReq req) throws Exception {
+    final String path = "/find/tradeDepth";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(TradeDepthResp.class);
+  }
+
+  /**
+   * 最新成交接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public LatestTradesResp latestTrades(LatestTradesReq req) throws Exception {
+    final String path = "/find/trades";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(LatestTradesResp.class);
   }
 }

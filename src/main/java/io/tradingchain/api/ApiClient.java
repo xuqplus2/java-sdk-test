@@ -14,6 +14,8 @@ import io.tradingchain.api.register.BeforeRegisterReq;
 import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
 import io.tradingchain.api.register.RegisterResp;
+import io.tradingchain.api.trade.GetHistoryTradesReq;
+import io.tradingchain.api.trade.GetHistoryTradesResp;
 import io.tradingchain.api.trade.GetIntervalListReq;
 import io.tradingchain.api.trade.GetIntervalListResp;
 import io.tradingchain.api.user.IsUserExistsReq;
@@ -280,5 +282,18 @@ public class ApiClient {
     final String path = "/find/getIntervalList";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(GetIntervalListResp.class);
+  }
+
+  /**
+   * 获取历史交易接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public GetHistoryTradesResp getHistoryTrades(GetHistoryTradesReq req) throws Exception {
+    final String path = "/find/history/getTrades";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(GetHistoryTradesResp.class);
   }
 }

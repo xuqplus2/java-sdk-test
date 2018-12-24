@@ -22,4 +22,34 @@ public class GetIntervalListReq {
     this.counterAsset = counterAsset;
     this.counterAssetIssuer = counterAssetIssuer;
   }
+
+  public GetIntervalListReq setBaseAsset(String baseAsset) {
+    this.baseAsset = baseAsset;
+    return this;
+  }
+
+  public GetIntervalListReq setBaseAssetIssuer(String baseAssetIssuer) {
+    this.baseAssetIssuer = baseAssetIssuer;
+    return this;
+  }
+
+  public GetIntervalListReq setCounterAsset(String counterAsset) {
+    this.counterAsset = counterAsset;
+    return this;
+  }
+
+  public GetIntervalListReq setCounterAssetIssuer(String counterAssetIssuer) {
+    this.counterAssetIssuer = counterAssetIssuer;
+    return this;
+  }
+
+  public GetIntervalListReq setSign(String sign) {
+    this.sign = sign;
+    return this;
+  }
+
+  public GetIntervalListReq setApiKey(String apiKey) {
+    this.apiKey = apiKey;
+    return this;
+  }
 }

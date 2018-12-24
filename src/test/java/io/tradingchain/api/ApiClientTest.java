@@ -3,6 +3,8 @@ package io.tradingchain.api;
 import com.alibaba.fastjson.JSON;
 import io.tradingchain.api.account.AccountDetailsReq;
 import io.tradingchain.api.account.AccountDetailsResp;
+import io.tradingchain.api.account.IsKeyBelongToReq;
+import io.tradingchain.api.account.IsKeyBelongToResp;
 import io.tradingchain.api.asset.*;
 import io.tradingchain.api.key.*;
 import io.tradingchain.api.kline.KLineReq;
@@ -185,6 +187,15 @@ public class ApiClientTest {
   public void accountDetails() throws Exception {
     AccountDetailsResp resp = ApiClient.getInstance()
             .accountDetails(new AccountDetailsReq("test", "test", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+    System.err.println(JSON.toJSONString(resp));
+
+    System.err.println(JSON.toJSONString(ApiClient.getInstance().accountDetails(new AccountDetailsReq("test", "test"))));
+  }
+
+  @Test
+  public void isKeyBelongTo() throws Exception {
+    IsKeyBelongToResp resp = ApiClient.getInstance()
+            .isKeyBelongTo(new IsKeyBelongToReq("test", "test", "xx"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

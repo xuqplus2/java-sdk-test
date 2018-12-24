@@ -2,6 +2,8 @@ package io.tradingchain.api;
 
 import io.tradingchain.api.account.AccountDetailsReq;
 import io.tradingchain.api.account.AccountDetailsResp;
+import io.tradingchain.api.account.IsKeyBelongToReq;
+import io.tradingchain.api.account.IsKeyBelongToResp;
 import io.tradingchain.api.asset.AssetTrustReq;
 import io.tradingchain.api.asset.AssetTrustResp;
 import io.tradingchain.api.asset.AssetsTrustReq;
@@ -347,7 +349,19 @@ public class ApiClient {
   public AccountDetailsResp accountDetails(AccountDetailsReq req) throws Exception {
     final String path = "/find/account";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    System.err.println(response);
     return response.castTo(AccountDetailsResp.class);
+  }
+
+  /**
+   * KEY是否属于账户接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public IsKeyBelongToResp isKeyBelongTo(IsKeyBelongToReq req) throws Exception {
+    final String path = "/api/keyIsBelong";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(IsKeyBelongToResp.class);
   }
 }

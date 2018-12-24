@@ -224,9 +224,16 @@ public class ApiClientTest {
   }
 
   @Test
-  public void userTransferHistory()  throws Exception {
+  public void userTransferHistory() throws Exception {
     UserTransferHistoryResp resp = ApiClient.getInstance()
             .userTransferHistory(new UserTransferHistoryReq("15921863921", "12345678", 200));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void userOffers() throws Exception {
+    UserOffersResp resp = ApiClient.getInstance()
+            .userOffers(new UserOffersReq("15921863921", "12345678"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

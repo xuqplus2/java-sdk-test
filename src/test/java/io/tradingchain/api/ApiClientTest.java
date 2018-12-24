@@ -1,10 +1,7 @@
 package io.tradingchain.api;
 
 import com.alibaba.fastjson.JSON;
-import io.tradingchain.api.account.AccountDetailsReq;
-import io.tradingchain.api.account.AccountDetailsResp;
-import io.tradingchain.api.account.IsKeyBelongToReq;
-import io.tradingchain.api.account.IsKeyBelongToResp;
+import io.tradingchain.api.account.*;
 import io.tradingchain.api.asset.*;
 import io.tradingchain.api.key.*;
 import io.tradingchain.api.kline.KLineReq;
@@ -197,5 +194,18 @@ public class ApiClientTest {
     IsKeyBelongToResp resp = ApiClient.getInstance()
             .isKeyBelongTo(new IsKeyBelongToReq("test", "test", "xx"));
     System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void accountValuations() throws Exception {
+    AccountValuationsResp resp = ApiClient.getInstance()
+            .accountValuations(new AccountValuationsReq("test", "test", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+    System.err.println(JSON.toJSONString(resp));
+
+    System.err.println(JSON.toJSONString(ApiClient.getInstance().accountValuations(
+            new AccountValuationsReq("test", "test", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG")
+                    .addAsset(new AssetPair("XRP", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"))
+                    .addAsset(new AssetPair("BTC", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"))
+    )));
   }
 }

@@ -208,4 +208,11 @@ public class ApiClientTest {
                     .addAsset(new AssetPair("BTC", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"))
     )));
   }
+
+  @Test
+  public void assetAmount() throws Exception {
+    AssetAmountResp resp = ApiClient.getInstance()
+            .assetAmount(new AssetAmountReq("test", "test", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+    System.err.println(JSON.toJSONString(resp));
+  }
 }

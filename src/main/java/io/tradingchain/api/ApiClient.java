@@ -374,4 +374,17 @@ public class ApiClient {
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(AccountValuationsResp.class);
   }
+
+  /**
+   * 单一币种数量接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public AssetAmountResp assetAmount(AssetAmountReq req) throws Exception {
+    final String path = "/find/getOneAssetAmount";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(AssetAmountResp.class);
+  }
 }

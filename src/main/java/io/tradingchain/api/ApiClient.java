@@ -400,4 +400,18 @@ public class ApiClient {
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(UserTradesHistoryResp.class);
   }
+
+  /**
+   * 用户历史转账接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public UserTransferHistoryResp userTransferHistory(UserTransferHistoryReq req) throws Exception {
+    final String path = "/find/account/payments";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    System.err.println(response);
+    return response.castTo(UserTransferHistoryResp.class);
+  }
 }

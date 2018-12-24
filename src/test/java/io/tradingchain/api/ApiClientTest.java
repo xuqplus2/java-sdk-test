@@ -222,4 +222,11 @@ public class ApiClientTest {
             .userTradesHistory(new UserTradesHistoryReq("15921863921", "12345678", 200));
     System.err.println(JSON.toJSONString(resp));
   }
+
+  @Test
+  public void userTransferHistory()  throws Exception {
+    UserTransferHistoryResp resp = ApiClient.getInstance()
+            .userTransferHistory(new UserTransferHistoryReq("15921863921", "12345678", 200));
+    System.err.println(JSON.toJSONString(resp));
+  }
 }

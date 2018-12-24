@@ -154,5 +154,8 @@ public class ApiClientTest {
     GetHistoryTradesResp resp = ApiClient.getInstance()
             .getHistoryTrades(new GetHistoryTradesReq("USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "BTC", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
     System.err.println(JSON.toJSONString(resp));
+
+    System.err.println(resp.data.get(0).createdAt);
+    System.err.println(resp.data.get(0).cursor);
   }
 }

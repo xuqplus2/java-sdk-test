@@ -294,6 +294,7 @@ public class ApiClient {
   public GetHistoryTradesResp getHistoryTrades(GetHistoryTradesReq req) throws Exception {
     final String path = "/find/history/getTrades";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    System.err.println(response);
     return response.castTo(GetHistoryTradesResp.class);
   }
 }

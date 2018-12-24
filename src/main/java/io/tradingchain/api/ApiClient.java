@@ -10,9 +10,9 @@ import io.tradingchain.api.kline.KLineReq;
 import io.tradingchain.api.kline.KLineResp;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
+import io.tradingchain.api.order.QueryOrderReq;
+import io.tradingchain.api.order.QueryOrderResp;
 import io.tradingchain.api.password.*;
-import io.tradingchain.api.queryOrder.QueryOrderReq;
-import io.tradingchain.api.queryOrder.QueryOrderResp;
 import io.tradingchain.api.register.BeforeRegisterReq;
 import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
@@ -386,5 +386,19 @@ public class ApiClient {
     final String path = "/find/getOneAssetAmount";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(AssetAmountResp.class);
+  }
+
+  /**
+   * 用户历史交易接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public UserTradesHistoryResp userTradesHistory(UserTradesHistoryReq req) throws Exception {
+    final String path = "/find/history/trades";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    System.err.println(response);
+    return response.castTo(UserTradesHistoryResp.class);
   }
 }

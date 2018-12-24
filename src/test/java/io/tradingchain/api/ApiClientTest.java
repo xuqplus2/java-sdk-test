@@ -8,9 +8,9 @@ import io.tradingchain.api.kline.KLineReq;
 import io.tradingchain.api.kline.KLineResp;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
+import io.tradingchain.api.order.QueryOrderReq;
+import io.tradingchain.api.order.QueryOrderResp;
 import io.tradingchain.api.password.*;
-import io.tradingchain.api.queryOrder.QueryOrderReq;
-import io.tradingchain.api.queryOrder.QueryOrderResp;
 import io.tradingchain.api.register.BeforeRegisterReq;
 import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
@@ -26,7 +26,7 @@ public class ApiClientTest {
   // 测试服务器的参数
   public static final String BASE_URL = "http://api.1mfpay.com";
   public static final String API_KEY = "tradingchain";
-  public static final String PLATFORM = "tradingchain";
+  public static final String PLATFORM = "tradingchain_test";
   public static final String SECRET = "yScdDvjCDJ906OlrIGIzITnOZVDKKEpm";
 
   @Before
@@ -213,6 +213,14 @@ public class ApiClientTest {
   public void assetAmount() throws Exception {
     AssetAmountResp resp = ApiClient.getInstance()
             .assetAmount(new AssetAmountReq("test", "test", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void userTradesHistory() throws Exception {
+    // todo, size>66 时查不到数据
+    UserTradesHistoryResp resp = ApiClient.getInstance()
+            .userTradesHistory(new UserTradesHistoryReq("15921863921", "12345678", 66));
     System.err.println(JSON.toJSONString(resp));
   }
 }

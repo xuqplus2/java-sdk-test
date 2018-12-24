@@ -1,4 +1,4 @@
-package io.tradingchain.api.queryOrder;
+package io.tradingchain.api.order;
 
 import io.tradingchain.annotation.ReqParam;
 

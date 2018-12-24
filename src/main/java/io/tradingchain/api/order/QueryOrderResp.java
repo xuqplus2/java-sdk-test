@@ -1,4 +1,4 @@
-package io.tradingchain.api.queryOrder;
+package io.tradingchain.api.order;
 
 public class QueryOrderResp {
   public Integer code;

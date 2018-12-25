@@ -16,10 +16,7 @@ import io.tradingchain.api.kline.KLineResp;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
 import io.tradingchain.api.offer.*;
-import io.tradingchain.api.order.PreOrderReq;
-import io.tradingchain.api.order.PreOrderResp;
-import io.tradingchain.api.order.QueryOrderReq;
-import io.tradingchain.api.order.QueryOrderResp;
+import io.tradingchain.api.order.*;
 import io.tradingchain.api.password.*;
 import io.tradingchain.api.path.DoPathPaymentReq;
 import io.tradingchain.api.path.DoPathPaymentResp;
@@ -636,5 +633,19 @@ public class ApiClient {
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     System.err.println(response);
     return response.castTo(PreOrderResp.class);
+  }
+
+  /**
+   * 预支付订单查询接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public OrderInfoResp orderInfo(OrderInfoReq req) throws Exception {
+    final String path = "/api/order/info";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    System.err.println(response);
+    return response.castTo(OrderInfoResp.class);
   }
 }

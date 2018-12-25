@@ -14,10 +14,7 @@ import io.tradingchain.api.kline.KLineResp;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
 import io.tradingchain.api.offer.*;
-import io.tradingchain.api.order.PreOrderReq;
-import io.tradingchain.api.order.PreOrderResp;
-import io.tradingchain.api.order.QueryOrderReq;
-import io.tradingchain.api.order.QueryOrderResp;
+import io.tradingchain.api.order.*;
 import io.tradingchain.api.password.*;
 import io.tradingchain.api.path.DoPathPaymentReq;
 import io.tradingchain.api.path.DoPathPaymentResp;
@@ -357,7 +354,14 @@ public class ApiClientTest {
   @Test
   public void preOrder() throws Exception {
     PreOrderResp resp = ApiClient.getInstance()
-            .preOrder(new PreOrderReq("test_001", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "https://a.com", 1L));
+            .preOrder(new PreOrderReq("test_a01" + System.currentTimeMillis(), "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "https://a.com", 1L));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void orderInfo() throws Exception {
+    OrderInfoResp resp = ApiClient.getInstance()
+            .orderInfo(new OrderInfoReq("tc201812255320000000000002"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

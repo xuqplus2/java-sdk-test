@@ -2,6 +2,8 @@ package io.tradingchain.api;
 
 import com.alibaba.fastjson.JSON;
 import io.tradingchain.api.account.*;
+import io.tradingchain.api.admin.GetAssetsReq;
+import io.tradingchain.api.admin.GetAssetsResp;
 import io.tradingchain.api.asset.*;
 import io.tradingchain.api.coin.*;
 import io.tradingchain.api.key.*;
@@ -331,6 +333,13 @@ public class ApiClientTest {
   public void doPathPaymentChargeAdvance() throws Exception {
     DoPathPaymentResp resp = ApiClient.getInstance().doPathPaymentChargeAdvance(DoPathPaymentReq
             .getInstanceByBackupKey("test", "test", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "xxxx"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void getAssets() throws Exception {
+    GetAssetsResp resp = ApiClient.getInstance()
+            .getAssets(new GetAssetsReq(1, 10));
     System.err.println(JSON.toJSONString(resp));
   }
 }

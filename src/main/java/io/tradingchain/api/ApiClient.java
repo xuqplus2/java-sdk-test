@@ -1,6 +1,8 @@
 package io.tradingchain.api;
 
 import io.tradingchain.api.account.*;
+import io.tradingchain.api.admin.GetAssetsReq;
+import io.tradingchain.api.admin.GetAssetsResp;
 import io.tradingchain.api.asset.AssetTrustReq;
 import io.tradingchain.api.asset.AssetTrustResp;
 import io.tradingchain.api.asset.AssetsTrustReq;
@@ -588,5 +590,18 @@ public class ApiClient {
     final String path = "/trade/api/paymentPath";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(DoPathPaymentResp.class);
+  }
+
+  /**
+   * 币种列表接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public GetAssetsResp getAssets(GetAssetsReq req) throws Exception {
+    final String path = "/api/admin/getAssets";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(GetAssetsResp.class);
   }
 }

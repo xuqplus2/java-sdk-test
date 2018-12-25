@@ -15,6 +15,8 @@ import io.tradingchain.api.offer.*;
 import io.tradingchain.api.order.QueryOrderReq;
 import io.tradingchain.api.order.QueryOrderResp;
 import io.tradingchain.api.password.*;
+import io.tradingchain.api.path.PaymentPathReq;
+import io.tradingchain.api.path.PaymentPathResp;
 import io.tradingchain.api.register.BeforeRegisterReq;
 import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
@@ -470,7 +472,7 @@ public class ApiClient {
   }
 
   /**
-   * 转账接口(接收方扣手续费,先付)
+   * 转账接口(发送方扣手续费,先付)
    *
    * @param req
    * @return
@@ -532,5 +534,31 @@ public class ApiClient {
     final String path = "/find/getOrders";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(WithdrawCoinDetailsResp.class);
+  }
+
+  /**
+   * 桥链列表接口(接收方扣手续费,到付)
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public PaymentPathResp paymentPathOfFreightCollect(PaymentPathReq req) throws Exception {
+    final String path = "/find/getPaymentPathList";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(PaymentPathResp.class);
+  }
+
+  /**
+   * 桥链列表接口(发送方扣手续费,先付)
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public PaymentPathResp paymentPathOfChargeAdvance(PaymentPathReq req) throws Exception {
+    final String path = "/find/getPaymentPath";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(PaymentPathResp.class);
   }
 }

@@ -10,6 +10,8 @@ import io.tradingchain.api.kline.KLineReq;
 import io.tradingchain.api.kline.KLineResp;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
+import io.tradingchain.api.offer.CommitOfferReq;
+import io.tradingchain.api.offer.CommitOfferResp;
 import io.tradingchain.api.order.QueryOrderReq;
 import io.tradingchain.api.order.QueryOrderResp;
 import io.tradingchain.api.password.*;
@@ -425,5 +427,18 @@ public class ApiClient {
     final String path = "/find/account/offers";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(UserOffersResp.class);
+  }
+
+  /**
+   * 发起委托接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public CommitOfferResp commitOffer(CommitOfferReq req) throws Exception {
+    final String path = "/trade/api/commitOffer";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(CommitOfferResp.class);
   }
 }

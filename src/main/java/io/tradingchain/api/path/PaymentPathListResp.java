@@ -2,7 +2,7 @@ package io.tradingchain.api.path;
 
 import java.util.List;
 
-public class PaymentPathResp {
+public class PaymentPathListResp {
   public Integer code;
   public String msg;
   public List<Data> data;

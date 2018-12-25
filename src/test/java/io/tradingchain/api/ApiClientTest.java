@@ -13,8 +13,8 @@ import io.tradingchain.api.offer.*;
 import io.tradingchain.api.order.QueryOrderReq;
 import io.tradingchain.api.order.QueryOrderResp;
 import io.tradingchain.api.password.*;
-import io.tradingchain.api.path.PaymentPathReq;
-import io.tradingchain.api.path.PaymentPathResp;
+import io.tradingchain.api.path.PaymentPathListReq;
+import io.tradingchain.api.path.PaymentPathListResp;
 import io.tradingchain.api.register.BeforeRegisterReq;
 import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
@@ -305,16 +305,16 @@ public class ApiClientTest {
   }
 
   @Test
-  public void paymentPathOfFreightCollect() throws Exception {
-    PaymentPathResp resp = ApiClient.getInstance()
-            .paymentPathOfFreightCollect(new PaymentPathReq("15921863921", "12345678", "1", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+  public void paymentPathListOfFreightCollect() throws Exception {
+    PaymentPathListResp resp = ApiClient.getInstance()
+            .paymentPathListOfFreightCollect(new PaymentPathListReq("15921863921", "12345678", "1", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
     System.err.println(JSON.toJSONString(resp));
   }
 
   @Test
-  public void paymentPathOfChargeAdvance() throws Exception {
-    PaymentPathResp resp = ApiClient.getInstance()
-            .paymentPathOfChargeAdvance(new PaymentPathReq("15921863921", "12345678", "1", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+  public void paymentPathListOfChargeAdvance() throws Exception {
+    PaymentPathListResp resp = ApiClient.getInstance()
+            .paymentPathListOfChargeAdvance(new PaymentPathListReq("15921863921", "12345678", "1", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

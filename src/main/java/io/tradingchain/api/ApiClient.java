@@ -15,8 +15,8 @@ import io.tradingchain.api.offer.*;
 import io.tradingchain.api.order.QueryOrderReq;
 import io.tradingchain.api.order.QueryOrderResp;
 import io.tradingchain.api.password.*;
-import io.tradingchain.api.path.PaymentPathReq;
-import io.tradingchain.api.path.PaymentPathResp;
+import io.tradingchain.api.path.PaymentPathListReq;
+import io.tradingchain.api.path.PaymentPathListResp;
 import io.tradingchain.api.register.BeforeRegisterReq;
 import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
@@ -543,10 +543,10 @@ public class ApiClient {
    * @return
    * @throws Exception
    */
-  public PaymentPathResp paymentPathOfFreightCollect(PaymentPathReq req) throws Exception {
+  public PaymentPathListResp paymentPathListOfFreightCollect(PaymentPathListReq req) throws Exception {
     final String path = "/find/getPaymentPathList";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(PaymentPathResp.class);
+    return response.castTo(PaymentPathListResp.class);
   }
 
   /**
@@ -556,9 +556,9 @@ public class ApiClient {
    * @return
    * @throws Exception
    */
-  public PaymentPathResp paymentPathOfChargeAdvance(PaymentPathReq req) throws Exception {
+  public PaymentPathListResp paymentPathListOfChargeAdvance(PaymentPathListReq req) throws Exception {
     final String path = "/find/getPaymentPath";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(PaymentPathResp.class);
+    return response.castTo(PaymentPathListResp.class);
   }
 }

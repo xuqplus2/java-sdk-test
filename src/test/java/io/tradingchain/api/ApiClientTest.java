@@ -17,6 +17,8 @@ import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
 import io.tradingchain.api.register.RegisterResp;
 import io.tradingchain.api.trade.*;
+import io.tradingchain.api.transfer.FreightCollectReq;
+import io.tradingchain.api.transfer.FreightCollectResp;
 import io.tradingchain.api.transfer.UserTransferHistoryReq;
 import io.tradingchain.api.transfer.UserTransferHistoryResp;
 import io.tradingchain.api.user.IsUserExistsReq;
@@ -251,6 +253,13 @@ public class ApiClientTest {
   public void cancelOffer() throws Exception {
     CancelOfferResp resp = ApiClient.getInstance()
             .cancelOffer(CancelOfferReq.getInstanceByBackupKey("test", "test", 1L, "xx"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void freightCollect() throws Exception {
+    FreightCollectResp resp = ApiClient.getInstance()
+            .freightCollect(FreightCollectReq.getInstanceByBackupKey("test", "test", "xx", "0.001", "xx", "xx", "xx"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

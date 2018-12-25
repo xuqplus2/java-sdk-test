@@ -19,6 +19,8 @@ import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
 import io.tradingchain.api.register.RegisterResp;
 import io.tradingchain.api.trade.*;
+import io.tradingchain.api.transfer.FreightCollectReq;
+import io.tradingchain.api.transfer.FreightCollectResp;
 import io.tradingchain.api.transfer.UserTransferHistoryReq;
 import io.tradingchain.api.transfer.UserTransferHistoryResp;
 import io.tradingchain.api.user.IsUserExistsReq;
@@ -454,5 +456,18 @@ public class ApiClient {
     final String path = "/trade/api/cancelOffer";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(CancelOfferResp.class);
+  }
+
+  /**
+   * 转账接口(接收方扣手续费,到付)
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public FreightCollectResp freightCollect(FreightCollectReq req) throws Exception {
+    final String path = "/trade/api/dfPayment";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(FreightCollectResp.class);
   }
 }

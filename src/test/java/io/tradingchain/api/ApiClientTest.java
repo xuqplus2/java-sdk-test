@@ -5,6 +5,8 @@ import io.tradingchain.api.account.*;
 import io.tradingchain.api.asset.*;
 import io.tradingchain.api.coin.ChargeCoinReq;
 import io.tradingchain.api.coin.ChargeCoinResp;
+import io.tradingchain.api.coin.WithdrawCoinReq;
+import io.tradingchain.api.coin.WithdrawCoinResp;
 import io.tradingchain.api.key.*;
 import io.tradingchain.api.kline.KLineReq;
 import io.tradingchain.api.kline.KLineResp;
@@ -271,8 +273,21 @@ public class ApiClientTest {
 
   @Test
   public void chargeCoin() throws Exception {
-    ChargeCoinResp resp = ApiClient.getInstance()
-            .chargeCoin(new ChargeCoinReq("test", "test", "test", "test", "test", "test", "test", "test", "0.001", "test", "test", "test", "xx"));
+    ChargeCoinResp resp = ApiClient.getInstance().chargeCoin(
+            new ChargeCoinReq("test", "test", "test", "test", "test", "test", "test", "0.001", "test", "test", "test")
+                    .setMemo("memo")
+                    .setGateWay(BASE_URL)
+    );
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void withdrawCoin() throws Exception {
+    WithdrawCoinResp resp = ApiClient.getInstance().withdrawCoin(
+            new WithdrawCoinReq("test", "test", "test", "test", "test", "test", "test", "1", "0.0001", "test", "test", "test")
+                    .setMemo("memo")
+                    .setGateWay(BASE_URL)
+    );
     System.err.println(JSON.toJSONString(resp));
   }
 }

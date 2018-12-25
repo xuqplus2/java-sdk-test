@@ -11,13 +11,13 @@ public class ChargeCollectTransferReq {
   public String privateKey;
   @ReqParam(nullable = true, comment = "用户私钥,与backupKey二选一")
   public String backupKey;
-  @ReqParam(nullable = true, comment = "资产数量")
+  @ReqParam(nullable = false, comment = "资产数量")
   public String amount;
-  @ReqParam(nullable = true, comment = "资产名称")
+  @ReqParam(nullable = false, comment = "资产名称")
   public String assetName;
-  @ReqParam(nullable = true, comment = "资产发行者")
+  @ReqParam(nullable = false, comment = "资产发行者")
   public String assetIssuer;
-  @ReqParam(nullable = true, comment = "对方帐户")
+  @ReqParam(nullable = false, comment = "对方帐户")
   public String destination;
   @ReqParam(nullable = false, comment = "标识")
   public String platform;

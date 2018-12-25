@@ -7,6 +7,8 @@ import io.tradingchain.api.asset.AssetsTrustReq;
 import io.tradingchain.api.asset.AssetsTrustResp;
 import io.tradingchain.api.coin.ChargeCoinReq;
 import io.tradingchain.api.coin.ChargeCoinResp;
+import io.tradingchain.api.coin.WithdrawCoinReq;
+import io.tradingchain.api.coin.WithdrawCoinResp;
 import io.tradingchain.api.key.*;
 import io.tradingchain.api.kline.KLineReq;
 import io.tradingchain.api.kline.KLineResp;
@@ -494,5 +496,18 @@ public class ApiClient {
     final String path = "/trade/api/chargeCoin";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(ChargeCoinResp.class);
+  }
+
+  /**
+   * 提币接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public WithdrawCoinResp withdrawCoin(WithdrawCoinReq req) throws Exception {
+    final String path = "/trade/api/withdrawCoin";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(WithdrawCoinResp.class);
   }
 }

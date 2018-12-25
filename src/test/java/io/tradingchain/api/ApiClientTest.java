@@ -289,7 +289,7 @@ public class ApiClientTest {
   }
 
   @Test
-  public void chargeDetails() throws Exception {
+  public void chargeCoinDetails() throws Exception {
     ChargeCoinDetailsResp resp = ApiClient.getInstance()
             .chargeCoinDetails(new ChargeCoinDetailsReq("15921863921", "12345678", 0, 10));
     System.err.println(JSON.toJSONString(resp));

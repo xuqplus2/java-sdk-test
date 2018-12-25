@@ -14,6 +14,8 @@ import io.tradingchain.api.kline.KLineResp;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
 import io.tradingchain.api.offer.*;
+import io.tradingchain.api.order.PreOrderReq;
+import io.tradingchain.api.order.PreOrderResp;
 import io.tradingchain.api.order.QueryOrderReq;
 import io.tradingchain.api.order.QueryOrderResp;
 import io.tradingchain.api.password.*;
@@ -349,6 +351,13 @@ public class ApiClientTest {
   public void getTradePairs() throws Exception {
     GetTradePairsResp resp = ApiClient.getInstance()
             .getTradePairs(new GetTradePairsReq("USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "counter", 1, 10));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void preOrder() throws Exception {
+    PreOrderResp resp = ApiClient.getInstance()
+            .preOrder(new PreOrderReq("test_001", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "https://a.com", 1L));
     System.err.println(JSON.toJSONString(resp));
   }
 }

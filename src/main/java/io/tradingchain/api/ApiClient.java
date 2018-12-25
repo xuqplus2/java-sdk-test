@@ -3,6 +3,8 @@ package io.tradingchain.api;
 import io.tradingchain.api.account.*;
 import io.tradingchain.api.admin.GetAssetsReq;
 import io.tradingchain.api.admin.GetAssetsResp;
+import io.tradingchain.api.admin.GetTradePairsReq;
+import io.tradingchain.api.admin.GetTradePairsResp;
 import io.tradingchain.api.asset.AssetTrustReq;
 import io.tradingchain.api.asset.AssetTrustResp;
 import io.tradingchain.api.asset.AssetsTrustReq;
@@ -602,6 +604,21 @@ public class ApiClient {
   public GetAssetsResp getAssets(GetAssetsReq req) throws Exception {
     final String path = "/api/admin/getAssets";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    System.err.println(response);
     return response.castTo(GetAssetsResp.class);
+  }
+
+  /**
+   * 交易对列表接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public GetTradePairsResp getTradePairs(GetTradePairsReq req) throws Exception {
+    final String path = "/api/admin/getTradePairs";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    System.err.println(response);
+    return response.castTo(GetTradePairsResp.class);
   }
 }

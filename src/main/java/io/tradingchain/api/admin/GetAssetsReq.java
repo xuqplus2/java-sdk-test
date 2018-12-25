@@ -3,7 +3,7 @@ package io.tradingchain.api.admin;
 import io.tradingchain.annotation.ReqParam;
 
 public class GetAssetsReq {
-  @ReqParam(nullable = false, comment = "分页页数,首页为1")
+  @ReqParam(nullable = false, comment = "分页页数")
   public String page;
   @ReqParam(nullable = false, comment = "分页行数")
   public String rows;

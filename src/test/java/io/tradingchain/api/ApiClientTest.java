@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import io.tradingchain.api.account.*;
 import io.tradingchain.api.admin.GetAssetsReq;
 import io.tradingchain.api.admin.GetAssetsResp;
+import io.tradingchain.api.admin.GetTradePairsReq;
+import io.tradingchain.api.admin.GetTradePairsResp;
 import io.tradingchain.api.asset.*;
 import io.tradingchain.api.coin.*;
 import io.tradingchain.api.key.*;
@@ -340,6 +342,13 @@ public class ApiClientTest {
   public void getAssets() throws Exception {
     GetAssetsResp resp = ApiClient.getInstance()
             .getAssets(new GetAssetsReq(1, 10));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void getTradePairs() throws Exception {
+    GetTradePairsResp resp = ApiClient.getInstance()
+            .getTradePairs(new GetTradePairsReq("USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "counter", 1, 10));
     System.err.println(JSON.toJSONString(resp));
   }
 }

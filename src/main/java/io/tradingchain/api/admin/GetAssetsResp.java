@@ -3,6 +3,8 @@ package io.tradingchain.api.admin;
 import java.util.List;
 
 public class GetAssetsResp {
+  public Integer code;
+  public String msg;
   public String total;
   public List<Row> rows;
 

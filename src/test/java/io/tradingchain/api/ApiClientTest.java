@@ -13,6 +13,8 @@ import io.tradingchain.api.offer.*;
 import io.tradingchain.api.order.QueryOrderReq;
 import io.tradingchain.api.order.QueryOrderResp;
 import io.tradingchain.api.password.*;
+import io.tradingchain.api.path.DoPathPaymentReq;
+import io.tradingchain.api.path.DoPathPaymentResp;
 import io.tradingchain.api.path.PaymentPathListReq;
 import io.tradingchain.api.path.PaymentPathListResp;
 import io.tradingchain.api.register.BeforeRegisterReq;
@@ -315,6 +317,20 @@ public class ApiClientTest {
   public void paymentPathListOfChargeAdvance() throws Exception {
     PaymentPathListResp resp = ApiClient.getInstance()
             .paymentPathListOfChargeAdvance(new PaymentPathListReq("15921863921", "12345678", "1", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void doPathPaymentFreightCollect() throws Exception {
+    DoPathPaymentResp resp = ApiClient.getInstance().doPathPaymentFreightCollect(DoPathPaymentReq
+            .getInstanceByBackupKey("test", "test", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "xxxx"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void doPathPaymentChargeAdvance() throws Exception {
+    DoPathPaymentResp resp = ApiClient.getInstance().doPathPaymentChargeAdvance(DoPathPaymentReq
+            .getInstanceByBackupKey("test", "test", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "xxxx"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

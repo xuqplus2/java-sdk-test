@@ -2,7 +2,7 @@ package io.tradingchain.api.transfer;
 
 import io.tradingchain.annotation.ReqParam;
 
-public class FreightCollectReq {
+public class ChargeAdvanceTransferReq {
   @ReqParam(nullable = false, comment = "用户名")
   public String username;
   @ReqParam(nullable = false, comment = "用户交易密码")
@@ -26,7 +26,7 @@ public class FreightCollectReq {
   @ReqParam(nullable = false, comment = "公钥")
   public String apiKey;
 
-  private FreightCollectReq(String username, String tradePassword, String privateKey, String backupKey, String amount, String assetName, String assetIssuer, String destination) {
+  private ChargeAdvanceTransferReq(String username, String tradePassword, String privateKey, String backupKey, String amount, String assetName, String assetIssuer, String destination) {
     this.username = username;
     this.tradePassword = tradePassword;
     this.privateKey = privateKey;
@@ -37,65 +37,65 @@ public class FreightCollectReq {
     this.destination = destination;
   }
 
-  public static final FreightCollectReq getInstanceByPrivateKey(String username, String tradePassword, String privateKey, String amount, String assetName, String assetIssuer, String destination) {
-    return new FreightCollectReq(username, tradePassword, privateKey, null, amount, assetName, assetIssuer, destination);
+  public static final ChargeAdvanceTransferReq getInstanceByPrivateKey(String username, String tradePassword, String privateKey, String amount, String assetName, String assetIssuer, String destination) {
+    return new ChargeAdvanceTransferReq(username, tradePassword, privateKey, null, amount, assetName, assetIssuer, destination);
   }
 
-  public static final FreightCollectReq getInstanceByBackupKey(String username, String tradePassword, String backupKey, String amount, String assetName, String assetIssuer, String destination) {
-    return new FreightCollectReq(username, tradePassword, null, backupKey, amount, assetName, assetIssuer, destination);
+  public static final ChargeAdvanceTransferReq getInstanceByBackupKey(String username, String tradePassword, String backupKey, String amount, String assetName, String assetIssuer, String destination) {
+    return new ChargeAdvanceTransferReq(username, tradePassword, null, backupKey, amount, assetName, assetIssuer, destination);
   }
 
-  public FreightCollectReq setUsername(String username) {
+  public ChargeAdvanceTransferReq setUsername(String username) {
     this.username = username;
     return this;
   }
 
-  public FreightCollectReq setTradePassword(String tradePassword) {
+  public ChargeAdvanceTransferReq setTradePassword(String tradePassword) {
     this.tradePassword = tradePassword;
     return this;
   }
 
-  public FreightCollectReq setPrivateKey(String privateKey) {
+  public ChargeAdvanceTransferReq setPrivateKey(String privateKey) {
     this.privateKey = privateKey;
     return this;
   }
 
-  public FreightCollectReq setBackupKey(String backupKey) {
+  public ChargeAdvanceTransferReq setBackupKey(String backupKey) {
     this.backupKey = backupKey;
     return this;
   }
 
-  public FreightCollectReq setAmount(String amount) {
+  public ChargeAdvanceTransferReq setAmount(String amount) {
     this.amount = amount;
     return this;
   }
 
-  public FreightCollectReq setAssetName(String assetName) {
+  public ChargeAdvanceTransferReq setAssetName(String assetName) {
     this.assetName = assetName;
     return this;
   }
 
-  public FreightCollectReq setAssetIssuer(String assetIssuer) {
+  public ChargeAdvanceTransferReq setAssetIssuer(String assetIssuer) {
     this.assetIssuer = assetIssuer;
     return this;
   }
 
-  public FreightCollectReq setDestination(String destination) {
+  public ChargeAdvanceTransferReq setDestination(String destination) {
     this.destination = destination;
     return this;
   }
 
-  public FreightCollectReq setPlatform(String platform) {
+  public ChargeAdvanceTransferReq setPlatform(String platform) {
     this.platform = platform;
     return this;
   }
 
-  public FreightCollectReq setSign(String sign) {
+  public ChargeAdvanceTransferReq setSign(String sign) {
     this.sign = sign;
     return this;
   }
 
-  public FreightCollectReq setApiKey(String apiKey) {
+  public ChargeAdvanceTransferReq setApiKey(String apiKey) {
     this.apiKey = apiKey;
     return this;
   }

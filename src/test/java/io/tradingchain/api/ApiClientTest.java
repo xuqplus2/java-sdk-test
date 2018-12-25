@@ -17,10 +17,7 @@ import io.tradingchain.api.register.BeforeRegisterResp;
 import io.tradingchain.api.register.RegisterReq;
 import io.tradingchain.api.register.RegisterResp;
 import io.tradingchain.api.trade.*;
-import io.tradingchain.api.transfer.FreightCollectReq;
-import io.tradingchain.api.transfer.FreightCollectResp;
-import io.tradingchain.api.transfer.UserTransferHistoryReq;
-import io.tradingchain.api.transfer.UserTransferHistoryResp;
+import io.tradingchain.api.transfer.*;
 import io.tradingchain.api.user.IsUserExistsReq;
 import io.tradingchain.api.user.IsUserExistsResp;
 import org.junit.Before;
@@ -257,9 +254,16 @@ public class ApiClientTest {
   }
 
   @Test
-  public void freightCollect() throws Exception {
-    FreightCollectResp resp = ApiClient.getInstance()
-            .freightCollect(FreightCollectReq.getInstanceByBackupKey("test", "test", "xx", "0.001", "xx", "xx", "xx"));
+  public void freightCollectTransfer() throws Exception {
+    ChargeCollectTransferResp resp = ApiClient.getInstance()
+            .freightCollectTransfer(ChargeCollectTransferReq.getInstanceByBackupKey("test", "test", "xx", "0.001", "xx", "xx", "xx"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void chargeAdvanceTransfer() throws Exception {
+    ChargeAdvanceTransferResp resp = ApiClient.getInstance()
+            .chargeAdvanceTransfer(ChargeAdvanceTransferReq.getInstanceByBackupKey("test", "test", "xx", "0.001", "xx", "xx", "xx"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

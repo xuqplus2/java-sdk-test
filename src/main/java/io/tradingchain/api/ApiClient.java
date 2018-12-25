@@ -5,10 +5,7 @@ import io.tradingchain.api.asset.AssetTrustReq;
 import io.tradingchain.api.asset.AssetTrustResp;
 import io.tradingchain.api.asset.AssetsTrustReq;
 import io.tradingchain.api.asset.AssetsTrustResp;
-import io.tradingchain.api.coin.ChargeCoinReq;
-import io.tradingchain.api.coin.ChargeCoinResp;
-import io.tradingchain.api.coin.WithdrawCoinReq;
-import io.tradingchain.api.coin.WithdrawCoinResp;
+import io.tradingchain.api.coin.*;
 import io.tradingchain.api.key.*;
 import io.tradingchain.api.kline.KLineReq;
 import io.tradingchain.api.kline.KLineResp;
@@ -509,5 +506,31 @@ public class ApiClient {
     final String path = "/trade/api/withdrawCoin";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(WithdrawCoinResp.class);
+  }
+
+  /**
+   * 查询充币信息接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public ChargeCoinDetailsResp chargeCoinDetails(ChargeCoinDetailsReq req) throws Exception {
+    final String path = "/find/getOrders";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(ChargeCoinDetailsResp.class);
+  }
+
+  /**
+   * 查询提币信息接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public WithdrawCoinDetailsResp withdrawCoinDetails(WithdrawCoinDetailsReq req) throws Exception {
+    final String path = "/find/getOrders";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(WithdrawCoinDetailsResp.class);
   }
 }

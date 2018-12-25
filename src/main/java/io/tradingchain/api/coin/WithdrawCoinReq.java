@@ -5,7 +5,7 @@ import io.tradingchain.annotation.ReqParam;
 public class WithdrawCoinReq {
   @ReqParam(nullable = false, comment = "用户名")
   public String username;
-  @ReqParam(nullable = false, comment = "用户密码")
+  @ReqParam(nullable = false, comment = "用户交易密码")
   public String password;
   @ReqParam(nullable = false, comment = "资产名称")
   public String assetName;

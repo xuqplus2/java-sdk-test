@@ -3,10 +3,7 @@ package io.tradingchain.api;
 import com.alibaba.fastjson.JSON;
 import io.tradingchain.api.account.*;
 import io.tradingchain.api.asset.*;
-import io.tradingchain.api.coin.ChargeCoinReq;
-import io.tradingchain.api.coin.ChargeCoinResp;
-import io.tradingchain.api.coin.WithdrawCoinReq;
-import io.tradingchain.api.coin.WithdrawCoinResp;
+import io.tradingchain.api.coin.*;
 import io.tradingchain.api.key.*;
 import io.tradingchain.api.kline.KLineReq;
 import io.tradingchain.api.kline.KLineResp;
@@ -288,6 +285,20 @@ public class ApiClientTest {
                     .setMemo("memo")
                     .setGateWay(BASE_URL)
     );
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void chargeDetails() throws Exception {
+    ChargeCoinDetailsResp resp = ApiClient.getInstance()
+            .chargeCoinDetails(new ChargeCoinDetailsReq("15921863921", "12345678", 0, 10));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void withdrawCoinDetails() throws Exception {
+    WithdrawCoinDetailsResp resp = ApiClient.getInstance()
+            .withdrawCoinDetails(new WithdrawCoinDetailsReq("15921863921", "12345678", 0, 10));
     System.err.println(JSON.toJSONString(resp));
   }
 }

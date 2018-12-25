@@ -69,8 +69,10 @@ public class HttpUtil {
       return JSON.parseObject(this.responseText);
     }
 
-    public <T> T castTo(Class<T> clazz) {
-      if (null == this.toMap().get("code")) System.err.println(this.toString());
+    public <T> T castTo(Class<T> clazz) throws Exception {
+      if (null == this.toMap().get("code")) {
+        throw new Exception(responseText);
+      }
       return JSON.parseObject(responseText, clazz);
     }
 

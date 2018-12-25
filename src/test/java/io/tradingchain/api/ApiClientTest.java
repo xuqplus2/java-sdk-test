@@ -66,13 +66,6 @@ public class ApiClientTest {
   }
 
   @Test
-  public void queryOrder() throws Exception {
-    QueryOrderResp resp = ApiClient.getInstance()
-            .queryOrder(QueryOrderReq.getInstanceByOutTradeNo("xxx"));
-    System.err.println(JSON.toJSONString(resp));
-  }
-
-  @Test
   public void isUserExists() throws Exception {
     IsUserExistsResp resp = ApiClient.getInstance()
             .isUserExists(new IsUserExistsReq("test"));
@@ -362,6 +355,20 @@ public class ApiClientTest {
   public void orderInfo() throws Exception {
     OrderInfoResp resp = ApiClient.getInstance()
             .orderInfo(new OrderInfoReq("tc201812255320000000000002"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void pay() throws Exception {
+    PayResp resp = ApiClient.getInstance()
+            .pay(new PayReq("tc201812255320000000000002", "test", "test", "xx", "xx", "xx", "xx", "0.01"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void queryOrder() throws Exception {
+    QueryOrderResp resp = ApiClient.getInstance()
+            .queryOrder(QueryOrderReq.getInstanceByOutTradeNo("xxx"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

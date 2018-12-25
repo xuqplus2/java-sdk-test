@@ -126,19 +126,6 @@ public class ApiClient {
   }
 
   /**
-   * 订单状态查询接口
-   *
-   * @param req
-   * @return
-   * @throws Exception
-   */
-  public QueryOrderResp queryOrder(QueryOrderReq req) throws Exception {
-    final String path = "/api/query/order";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(QueryOrderResp.class);
-  }
-
-  /**
    * 用户是否存在接口
    *
    * @param req
@@ -603,7 +590,6 @@ public class ApiClient {
   public GetAssetsResp getAssets(GetAssetsReq req) throws Exception {
     final String path = "/api/admin/getAssets";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    System.err.println(response);
     return response.castTo(GetAssetsResp.class);
   }
 
@@ -617,7 +603,6 @@ public class ApiClient {
   public GetTradePairsResp getTradePairs(GetTradePairsReq req) throws Exception {
     final String path = "/api/admin/getTradePairs";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    System.err.println(response);
     return response.castTo(GetTradePairsResp.class);
   }
 
@@ -631,7 +616,6 @@ public class ApiClient {
   public PreOrderResp preOrder(PreOrderReq req) throws Exception {
     final String path = "/api/preOrder";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    System.err.println(response);
     return response.castTo(PreOrderResp.class);
   }
 
@@ -645,7 +629,33 @@ public class ApiClient {
   public OrderInfoResp orderInfo(OrderInfoReq req) throws Exception {
     final String path = "/api/order/info";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    System.err.println(response);
     return response.castTo(OrderInfoResp.class);
+  }
+
+  /**
+   * 支付接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public PayResp pay(PayReq req) throws Exception {
+    final String path = "/api/pay/order";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    System.err.println(response);
+    return response.castTo(PayResp.class);
+  }
+
+  /**
+   * 订单状态查询接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public QueryOrderResp queryOrder(QueryOrderReq req) throws Exception {
+    final String path = "/api/query/order";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(QueryOrderResp.class);
   }
 }

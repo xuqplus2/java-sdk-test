@@ -70,6 +70,7 @@ public class HttpUtil {
     }
 
     public <T> T castTo(Class<T> clazz) {
+      if (null == this.toMap().get("code")) System.err.println(this.toString());
       return JSON.parseObject(responseText, clazz);
     }
 

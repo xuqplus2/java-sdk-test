@@ -3,6 +3,8 @@ package io.tradingchain.api;
 import com.alibaba.fastjson.JSON;
 import io.tradingchain.api.account.*;
 import io.tradingchain.api.asset.*;
+import io.tradingchain.api.coin.ChargeCoinReq;
+import io.tradingchain.api.coin.ChargeCoinResp;
 import io.tradingchain.api.key.*;
 import io.tradingchain.api.kline.KLineReq;
 import io.tradingchain.api.kline.KLineResp;
@@ -264,6 +266,13 @@ public class ApiClientTest {
   public void chargeAdvanceTransfer() throws Exception {
     ChargeAdvanceTransferResp resp = ApiClient.getInstance()
             .chargeAdvanceTransfer(ChargeAdvanceTransferReq.getInstanceByBackupKey("test", "test", "xx", "0.001", "xx", "xx", "xx"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void chargeCoin() throws Exception {
+    ChargeCoinResp resp = ApiClient.getInstance()
+            .chargeCoin(new ChargeCoinReq("test", "test", "test", "test", "test", "test", "test", "test", "0.001", "test", "test", "test", "xx"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

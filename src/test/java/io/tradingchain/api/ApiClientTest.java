@@ -271,7 +271,7 @@ public class ApiClientTest {
   @Test
   public void chargeCoin() throws Exception {
     ChargeCoinResp resp = ApiClient.getInstance().chargeCoin(
-            new ChargeCoinReq("test", "test", "test", "test", "test", "test", "test", "0.001", "test", "test", "test")
+            new ChargeCoinReq("15921863921", "12345678", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "15921863921", "test", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "xx")
                     .setMemo("memo")
                     .setGateWay(BASE_URL)
     );
@@ -291,14 +291,14 @@ public class ApiClientTest {
   @Test
   public void chargeCoinDetails() throws Exception {
     ChargeCoinDetailsResp resp = ApiClient.getInstance()
-            .chargeCoinDetails(new ChargeCoinDetailsReq("15921863921", "12345678", 0, 10));
+            .chargeCoinDetails(new ChargeCoinDetailsReq("15921863921", "12345678", 1, 10));
     System.err.println(JSON.toJSONString(resp));
   }
 
   @Test
   public void withdrawCoinDetails() throws Exception {
     WithdrawCoinDetailsResp resp = ApiClient.getInstance()
-            .withdrawCoinDetails(new WithdrawCoinDetailsReq("15921863921", "12345678", 0, 10));
+            .withdrawCoinDetails(new WithdrawCoinDetailsReq("15921863921", "12345678", 1, 10));
     System.err.println(JSON.toJSONString(resp));
   }
 
@@ -359,9 +359,9 @@ public class ApiClientTest {
   }
 
   @Test
-  public void pay() throws Exception {
-    PayResp resp = ApiClient.getInstance()
-            .pay(new PayReq("tc201812255320000000000002", "test", "test", "xx", "xx", "xx", "xx", "0.01"));
+  public void payOrder() throws Exception {
+    PayOrderResp resp = ApiClient.getInstance()
+            .payOrder(new PayOrderReq("tc201812255320000000000002", "test", "test", "xx", "xx", "xx", "xx", "0.01"));
     System.err.println(JSON.toJSONString(resp));
   }
 
@@ -369,6 +369,13 @@ public class ApiClientTest {
   public void queryOrder() throws Exception {
     QueryOrderResp resp = ApiClient.getInstance()
             .queryOrder(QueryOrderReq.getInstanceByOutTradeNo("xxx"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void revokeOrder() throws Exception {
+    RevokeOrderResp resp = ApiClient.getInstance()
+            .revokeOrder(RevokeOrderReq.getInstanceByTradingchainNo("tc201812255320000000000002"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

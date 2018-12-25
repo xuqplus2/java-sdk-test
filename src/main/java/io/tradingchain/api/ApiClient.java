@@ -54,10 +54,10 @@ public class ApiClient {
   }
 
   public static final ApiClient getInstance() throws Exception {
-    if (null == BASE_URL || "".equals(BASE_URL)) throw new Exception(String.format("全局参数%s未设置", "baseUrl"));
-    if (null == API_KEY || "".equals(API_KEY)) throw new Exception(String.format("全局参数%s未设置", "apiKey"));
-    if (null == PLATFORM || "".equals(PLATFORM)) throw new Exception(String.format("全局参数%s未设置", "platform"));
-    if (null == SECRET || "".equals(SECRET)) throw new Exception(String.format("全局参数%s未设置", "secret"));
+    if (null == BASE_URL || "".equals(BASE_URL)) throw new Exception(String.format("全局参数[%s]未设置", "baseUrl"));
+    if (null == API_KEY || "".equals(API_KEY)) throw new Exception(String.format("全局参数[%s]未设置", "apiKey"));
+    if (null == PLATFORM || "".equals(PLATFORM)) throw new Exception(String.format("全局参数[%s]未设置", "platform"));
+    if (null == SECRET || "".equals(SECRET)) throw new Exception(String.format("全局参数[%s]未设置", "secret"));
     return apiClient;
   }
 
@@ -95,8 +95,7 @@ public class ApiClient {
    */
   public BeforeRegisterResp beforeRegister(BeforeRegisterReq req) throws Exception {
     final String path = "/api/getKeyBeforeRegister";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(BeforeRegisterResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(BeforeRegisterResp.class);
   }
 
   /**
@@ -108,8 +107,7 @@ public class ApiClient {
    */
   public RegisterResp register(RegisterReq req) throws Exception {
     final String path = "/api/registUser2";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(RegisterResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(RegisterResp.class);
   }
 
   /**
@@ -121,8 +119,7 @@ public class ApiClient {
    */
   public LoginResp login(LoginReq req) throws Exception {
     final String path = "/api/login2";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(LoginResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(LoginResp.class);
   }
 
   /**
@@ -134,8 +131,7 @@ public class ApiClient {
    */
   public IsUserExistsResp isUserExists(IsUserExistsReq req) throws Exception {
     final String path = "/api/userIsExist";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(IsUserExistsResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(IsUserExistsResp.class);
   }
 
   /**
@@ -148,7 +144,7 @@ public class ApiClient {
   public ModifyPasswordResp modifyLoginPassword(ModifyPasswordReq req) throws Exception {
     final String path = "/api/resetPassword";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("P")), SECRET));
-    return response.castTo(ModifyPasswordResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ModifyPasswordResp.class);
   }
 
   /**
@@ -161,7 +157,7 @@ public class ApiClient {
   public ModifyPasswordResp modifyTradePassword(ModifyPasswordReq req) throws Exception {
     final String path = "/api/resetPassword";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("T")), SECRET));
-    return response.castTo(ModifyPasswordResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ModifyPasswordResp.class);
   }
 
   /**
@@ -174,7 +170,7 @@ public class ApiClient {
   public ResetPasswordResp resetLoginPassword(ResetPasswordReq req) throws Exception {
     final String path = "/api/forgetPassword";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("P")), SECRET));
-    return response.castTo(ResetPasswordResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ResetPasswordResp.class);
   }
 
   /**
@@ -187,7 +183,7 @@ public class ApiClient {
   public ResetPasswordResp resetTradePassword(ResetPasswordReq req) throws Exception {
     final String path = "/api/forgetPassword";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("T")), SECRET));
-    return response.castTo(ResetPasswordResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ResetPasswordResp.class);
   }
 
   /**
@@ -199,8 +195,7 @@ public class ApiClient {
    */
   public CheckTradePasswordResp checkTradePassword(CheckTradePasswordReq req) throws Exception {
     final String path = "/api/isTradePassword";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(CheckTradePasswordResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(CheckTradePasswordResp.class);
   }
 
   /**
@@ -212,8 +207,7 @@ public class ApiClient {
    */
   public ResetKeyResp resetKey(ResetKeyReq req) throws Exception {
     final String path = "/api/resetKey";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(ResetKeyResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ResetKeyResp.class);
   }
 
   /**
@@ -225,8 +219,7 @@ public class ApiClient {
    */
   public GetLoginKeysResp getLoginKeys(GetLoginKeysReq req) throws Exception {
     final String path = "/api/loginKey";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(GetLoginKeysResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(GetLoginKeysResp.class);
   }
 
   /**
@@ -238,8 +231,7 @@ public class ApiClient {
    */
   public BindLoginKeysResp bindLoginKeys(BindLoginKeysReq req) throws Exception {
     final String path = "/api/bindLoginKey";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(BindLoginKeysResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(BindLoginKeysResp.class);
   }
 
   /**
@@ -251,8 +243,7 @@ public class ApiClient {
    */
   public AssetTrustResp assetTrust(AssetTrustReq req) throws Exception {
     final String path = "/find/assetTrust";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(AssetTrustResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(AssetTrustResp.class);
   }
 
   /**
@@ -264,8 +255,7 @@ public class ApiClient {
    */
   public AssetsTrustResp assetsTrust(AssetsTrustReq req) throws Exception {
     final String path = "/find/assetTrustList";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(AssetsTrustResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(AssetsTrustResp.class);
   }
 
   /**
@@ -277,8 +267,7 @@ public class ApiClient {
    */
   public GetIntervalListResp getIntervalList(GetIntervalListReq req) throws Exception {
     final String path = "/find/getIntervalList";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(GetIntervalListResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(GetIntervalListResp.class);
   }
 
   /**
@@ -290,8 +279,7 @@ public class ApiClient {
    */
   public GetHistoryTradesResp getHistoryTrades(GetHistoryTradesReq req) throws Exception {
     final String path = "/find/history/getTrades";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(GetHistoryTradesResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(GetHistoryTradesResp.class);
   }
 
   /**
@@ -303,8 +291,7 @@ public class ApiClient {
    */
   public TradeDepthResp tradeDepth(TradeDepthReq req) throws Exception {
     final String path = "/find/tradeDepth";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(TradeDepthResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(TradeDepthResp.class);
   }
 
   /**
@@ -316,8 +303,7 @@ public class ApiClient {
    */
   public LatestTradesResp latestTrades(LatestTradesReq req) throws Exception {
     final String path = "/find/trades";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(LatestTradesResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(LatestTradesResp.class);
   }
 
   /**
@@ -329,8 +315,7 @@ public class ApiClient {
    */
   public KLineResp kLine(KLineReq req) throws Exception {
     final String path = "/find/k_line";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(KLineResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(KLineResp.class);
   }
 
   /**
@@ -342,8 +327,7 @@ public class ApiClient {
    */
   public AccountDetailsResp accountDetails(AccountDetailsReq req) throws Exception {
     final String path = "/find/account";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(AccountDetailsResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(AccountDetailsResp.class);
   }
 
   /**
@@ -355,8 +339,7 @@ public class ApiClient {
    */
   public IsKeyBelongToResp isKeyBelongTo(IsKeyBelongToReq req) throws Exception {
     final String path = "/api/keyIsBelong";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(IsKeyBelongToResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(IsKeyBelongToResp.class);
   }
 
   /**
@@ -368,8 +351,7 @@ public class ApiClient {
    */
   public AccountValuationsResp accountValuations(AccountValuationsReq req) throws Exception {
     final String path = "/find/account/valuations";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(AccountValuationsResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(AccountValuationsResp.class);
   }
 
   /**
@@ -381,8 +363,7 @@ public class ApiClient {
    */
   public AssetAmountResp assetAmount(AssetAmountReq req) throws Exception {
     final String path = "/find/getOneAssetAmount";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(AssetAmountResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(AssetAmountResp.class);
   }
 
   /**
@@ -394,8 +375,7 @@ public class ApiClient {
    */
   public UserTradesHistoryResp userTradesHistory(UserTradesHistoryReq req) throws Exception {
     final String path = "/find/history/trades";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(UserTradesHistoryResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(UserTradesHistoryResp.class);
   }
 
   /**
@@ -407,8 +387,7 @@ public class ApiClient {
    */
   public UserTransferHistoryResp userTransferHistory(UserTransferHistoryReq req) throws Exception {
     final String path = "/find/account/payments";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(UserTransferHistoryResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(UserTransferHistoryResp.class);
   }
 
   /**
@@ -420,8 +399,7 @@ public class ApiClient {
    */
   public UserOffersResp userOffers(UserOffersReq req) throws Exception {
     final String path = "/find/account/offers";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(UserOffersResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(UserOffersResp.class);
   }
 
   /**
@@ -433,8 +411,7 @@ public class ApiClient {
    */
   public CommitOfferResp commitOffer(CommitOfferReq req) throws Exception {
     final String path = "/trade/api/commitOffer";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(CommitOfferResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(CommitOfferResp.class);
   }
 
   /**
@@ -446,8 +423,7 @@ public class ApiClient {
    */
   public CancelOfferResp cancelOffer(CancelOfferReq req) throws Exception {
     final String path = "/trade/api/cancelOffer";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(CancelOfferResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(CancelOfferResp.class);
   }
 
   /**
@@ -459,8 +435,7 @@ public class ApiClient {
    */
   public ChargeCollectTransferResp freightCollectTransfer(ChargeCollectTransferReq req) throws Exception {
     final String path = "/trade/api/dfPayment";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(ChargeCollectTransferResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ChargeCollectTransferResp.class);
   }
 
   /**
@@ -472,8 +447,7 @@ public class ApiClient {
    */
   public ChargeAdvanceTransferResp chargeAdvanceTransfer(ChargeAdvanceTransferReq req) throws Exception {
     final String path = "/trade/api/payment";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(ChargeAdvanceTransferResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ChargeAdvanceTransferResp.class);
   }
 
   /**
@@ -485,8 +459,7 @@ public class ApiClient {
    */
   public ChargeCoinResp chargeCoin(ChargeCoinReq req) throws Exception {
     final String path = "/trade/api/chargeCoin";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(ChargeCoinResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ChargeCoinResp.class);
   }
 
   /**
@@ -498,8 +471,7 @@ public class ApiClient {
    */
   public WithdrawCoinResp withdrawCoin(WithdrawCoinReq req) throws Exception {
     final String path = "/trade/api/withdrawCoin";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(WithdrawCoinResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(WithdrawCoinResp.class);
   }
 
   /**
@@ -511,8 +483,7 @@ public class ApiClient {
    */
   public ChargeCoinDetailsResp chargeCoinDetails(ChargeCoinDetailsReq req) throws Exception {
     final String path = "/find/getOrders";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(ChargeCoinDetailsResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ChargeCoinDetailsResp.class);
   }
 
   /**
@@ -524,8 +495,7 @@ public class ApiClient {
    */
   public WithdrawCoinDetailsResp withdrawCoinDetails(WithdrawCoinDetailsReq req) throws Exception {
     final String path = "/find/getOrders";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(WithdrawCoinDetailsResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(WithdrawCoinDetailsResp.class);
   }
 
   /**
@@ -537,8 +507,7 @@ public class ApiClient {
    */
   public PaymentPathListResp paymentPathListOfFreightCollect(PaymentPathListReq req) throws Exception {
     final String path = "/find/getPaymentPathList";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(PaymentPathListResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(PaymentPathListResp.class);
   }
 
   /**
@@ -550,8 +519,7 @@ public class ApiClient {
    */
   public PaymentPathListResp paymentPathListOfChargeAdvance(PaymentPathListReq req) throws Exception {
     final String path = "/find/getPaymentPath";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(PaymentPathListResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(PaymentPathListResp.class);
   }
 
   /**
@@ -563,8 +531,7 @@ public class ApiClient {
    */
   public DoPathPaymentResp doPathPaymentFreightCollect(DoPathPaymentReq req) throws Exception {
     final String path = "/trade/api/dfPaymentPath";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(DoPathPaymentResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(DoPathPaymentResp.class);
   }
 
   /**
@@ -576,8 +543,7 @@ public class ApiClient {
    */
   public DoPathPaymentResp doPathPaymentChargeAdvance(DoPathPaymentReq req) throws Exception {
     final String path = "/trade/api/paymentPath";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(DoPathPaymentResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(DoPathPaymentResp.class);
   }
 
   /**
@@ -589,8 +555,7 @@ public class ApiClient {
    */
   public GetAssetsResp getAssets(GetAssetsReq req) throws Exception {
     final String path = "/api/admin/getAssets";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(GetAssetsResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(GetAssetsResp.class);
   }
 
   /**
@@ -602,8 +567,7 @@ public class ApiClient {
    */
   public GetTradePairsResp getTradePairs(GetTradePairsReq req) throws Exception {
     final String path = "/api/admin/getTradePairs";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(GetTradePairsResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(GetTradePairsResp.class);
   }
 
   /**
@@ -615,8 +579,7 @@ public class ApiClient {
    */
   public PreOrderResp preOrder(PreOrderReq req) throws Exception {
     final String path = "/api/preOrder";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(PreOrderResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(PreOrderResp.class);
   }
 
   /**
@@ -628,8 +591,7 @@ public class ApiClient {
    */
   public OrderInfoResp orderInfo(OrderInfoReq req) throws Exception {
     final String path = "/api/order/info";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(OrderInfoResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(OrderInfoResp.class);
   }
 
   /**
@@ -639,11 +601,9 @@ public class ApiClient {
    * @return
    * @throws Exception
    */
-  public PayResp pay(PayReq req) throws Exception {
+  public PayOrderResp payOrder(PayOrderReq req) throws Exception {
     final String path = "/api/pay/order";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    System.err.println(response);
-    return response.castTo(PayResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(PayOrderResp.class);
   }
 
   /**
@@ -655,7 +615,18 @@ public class ApiClient {
    */
   public QueryOrderResp queryOrder(QueryOrderReq req) throws Exception {
     final String path = "/api/query/order";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
-    return response.castTo(QueryOrderResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(QueryOrderResp.class);
+  }
+
+  /**
+   * 撤销订单接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public RevokeOrderResp revokeOrder(RevokeOrderReq req) throws Exception {
+    final String path = "/api/revoke/order";
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(RevokeOrderResp.class);
   }
 }

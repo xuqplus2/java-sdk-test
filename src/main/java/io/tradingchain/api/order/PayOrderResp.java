@@ -1,6 +1,6 @@
 package io.tradingchain.api.order;
 
-public class PayResp {
+public class PayOrderResp {
   public Integer code;
   public String msg;
   public Data data;

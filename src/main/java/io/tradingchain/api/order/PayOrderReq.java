@@ -2,7 +2,7 @@ package io.tradingchain.api.order;
 
 import io.tradingchain.annotation.ReqParam;
 
-public class PayReq {
+public class PayOrderReq {
   @ReqParam(nullable = false, comment = "预支付会话标识")
   public String prepayId;
   @ReqParam(nullable = false, comment = "用户名")
@@ -26,7 +26,7 @@ public class PayReq {
   @ReqParam(nullable = false, comment = "公钥")
   public String apiKey;
 
-  public PayReq(String prepayId, String username, String tradePassword, String privateKey, String source, String sourceAssetName, String sourceAssetIssuer, String sourceAmount) {
+  public PayOrderReq(String prepayId, String username, String tradePassword, String privateKey, String source, String sourceAssetName, String sourceAssetIssuer, String sourceAmount) {
     this.prepayId = prepayId;
     this.username = username;
     this.tradePassword = tradePassword;
@@ -37,57 +37,57 @@ public class PayReq {
     this.sourceAmount = sourceAmount;
   }
 
-  public PayReq setPrepayId(String prepayId) {
+  public PayOrderReq setPrepayId(String prepayId) {
     this.prepayId = prepayId;
     return this;
   }
 
-  public PayReq setUsername(String username) {
+  public PayOrderReq setUsername(String username) {
     this.username = username;
     return this;
   }
 
-  public PayReq setTradePassword(String tradePassword) {
+  public PayOrderReq setTradePassword(String tradePassword) {
     this.tradePassword = tradePassword;
     return this;
   }
 
-  public PayReq setPrivateKey(String privateKey) {
+  public PayOrderReq setPrivateKey(String privateKey) {
     this.privateKey = privateKey;
     return this;
   }
 
-  public PayReq setSource(String source) {
+  public PayOrderReq setSource(String source) {
     this.source = source;
     return this;
   }
 
-  public PayReq setSourceAssetName(String sourceAssetName) {
+  public PayOrderReq setSourceAssetName(String sourceAssetName) {
     this.sourceAssetName = sourceAssetName;
     return this;
   }
 
-  public PayReq setSourceAssetIssuer(String sourceAssetIssuer) {
+  public PayOrderReq setSourceAssetIssuer(String sourceAssetIssuer) {
     this.sourceAssetIssuer = sourceAssetIssuer;
     return this;
   }
 
-  public PayReq setSourceAmount(String sourceAmount) {
+  public PayOrderReq setSourceAmount(String sourceAmount) {
     this.sourceAmount = sourceAmount;
     return this;
   }
 
-  public PayReq setPlatform(String platform) {
+  public PayOrderReq setPlatform(String platform) {
     this.platform = platform;
     return this;
   }
 
-  public PayReq setSign(String sign) {
+  public PayOrderReq setSign(String sign) {
     this.sign = sign;
     return this;
   }
 
-  public PayReq setApiKey(String apiKey) {
+  public PayOrderReq setApiKey(String apiKey) {
     this.apiKey = apiKey;
     return this;
   }

@@ -10,6 +10,9 @@ public class GetTradePairsResp {
 
   public static class Row {
     public String id;
+    public String baseId;
+    public String counterId;
+    public Boolean isOnline;
     public String baseAssetName;
     public String counterAssetName;
     public String baseGateWay;

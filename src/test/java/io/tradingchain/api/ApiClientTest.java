@@ -8,6 +8,8 @@ import io.tradingchain.api.kline.KLineReq;
 import io.tradingchain.api.kline.KLineResp;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
+import io.tradingchain.api.offer.CancelOfferReq;
+import io.tradingchain.api.offer.CancelOfferResp;
 import io.tradingchain.api.offer.CommitOfferReq;
 import io.tradingchain.api.offer.CommitOfferResp;
 import io.tradingchain.api.order.QueryOrderReq;
@@ -243,6 +245,13 @@ public class ApiClientTest {
   public void commitOffer() throws Exception {
     CommitOfferResp resp = ApiClient.getInstance()
             .commitOffer(CommitOfferReq.getInstanceByBackupKey("test", "test", "0.001", "0.001", "xx", "xx", "xx", "xx", "buy", "xx"));
+    System.err.println(JSON.toJSONString(resp));
+  }
+
+  @Test
+  public void cancelOffer() throws Exception {
+    CancelOfferResp resp = ApiClient.getInstance()
+            .cancelOffer(CancelOfferReq.getInstanceByBackupKey("test", "test", 1L, "xx"));
     System.err.println(JSON.toJSONString(resp));
   }
 }

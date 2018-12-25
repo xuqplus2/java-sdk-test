@@ -10,6 +10,8 @@ import io.tradingchain.api.kline.KLineReq;
 import io.tradingchain.api.kline.KLineResp;
 import io.tradingchain.api.login.LoginReq;
 import io.tradingchain.api.login.LoginResp;
+import io.tradingchain.api.offer.CancelOfferReq;
+import io.tradingchain.api.offer.CancelOfferResp;
 import io.tradingchain.api.offer.CommitOfferReq;
 import io.tradingchain.api.offer.CommitOfferResp;
 import io.tradingchain.api.order.QueryOrderReq;
@@ -440,5 +442,18 @@ public class ApiClient {
     final String path = "/trade/api/commitOffer";
     HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
     return response.castTo(CommitOfferResp.class);
+  }
+
+  /**
+   * 撤销委托接口
+   *
+   * @param req
+   * @return
+   * @throws Exception
+   */
+  public CancelOfferResp cancelOffer(CancelOfferReq req) throws Exception {
+    final String path = "/trade/api/cancelOffer";
+    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET));
+    return response.castTo(CancelOfferResp.class);
   }
 }

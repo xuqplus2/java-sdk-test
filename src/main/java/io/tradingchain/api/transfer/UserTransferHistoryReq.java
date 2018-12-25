@@ -1,8 +1,8 @@
-package io.tradingchain.api.account;
+package io.tradingchain.api.transfer;
 
 import io.tradingchain.annotation.ReqParam;
 
-public class UserTradesHistoryReq {
+public class UserTransferHistoryReq {
   @ReqParam(nullable = false, comment = "用户名")
   public String username;
   @ReqParam(nullable = false, comment = "用户登录密码")
@@ -20,7 +20,7 @@ public class UserTradesHistoryReq {
   @ReqParam(nullable = false, comment = "公钥")
   public String apiKey;
 
-  public UserTradesHistoryReq(String username, String password, Integer size, String cursor, String order) {
+  public UserTransferHistoryReq(String username, String password, Integer size, String cursor, String order) {
     this.username = username;
     this.password = password;
     this.size = size;
@@ -28,54 +28,54 @@ public class UserTradesHistoryReq {
     this.order = order;
   }
 
-  public UserTradesHistoryReq(String username, String password, Integer size, String order) {
+  public UserTransferHistoryReq(String username, String password, Integer size, String order) {
     this(username, password, size, "", order);
   }
 
-  public UserTradesHistoryReq(String username, String password, Integer size) {
+  public UserTransferHistoryReq(String username, String password, Integer size) {
     this(username, password, size, null);
   }
 
-  public UserTradesHistoryReq(String username, String password) {
+  public UserTransferHistoryReq(String username, String password) {
     this(username, password, null);
   }
 
-  public UserTradesHistoryReq setUsername(String username) {
+  public UserTransferHistoryReq setUsername(String username) {
     this.username = username;
     return this;
   }
 
-  public UserTradesHistoryReq setPassword(String password) {
+  public UserTransferHistoryReq setPassword(String password) {
     this.password = password;
     return this;
   }
 
-  public UserTradesHistoryReq setSize(Integer size) {
+  public UserTransferHistoryReq setSize(Integer size) {
     this.size = size;
     return this;
   }
 
-  public UserTradesHistoryReq setCursor(String cursor) {
+  public UserTransferHistoryReq setCursor(String cursor) {
     this.cursor = cursor;
     return this;
   }
 
-  public UserTradesHistoryReq setOrder(String order) {
+  public UserTransferHistoryReq setOrder(String order) {
     this.order = order;
     return this;
   }
 
-  public UserTradesHistoryReq setPlatform(String platform) {
+  public UserTransferHistoryReq setPlatform(String platform) {
     this.platform = platform;
     return this;
   }
 
-  public UserTradesHistoryReq setSign(String sign) {
+  public UserTransferHistoryReq setSign(String sign) {
     this.sign = sign;
     return this;
   }
 
-  public UserTradesHistoryReq setApiKey(String apiKey) {
+  public UserTransferHistoryReq setApiKey(String apiKey) {
     this.apiKey = apiKey;
     return this;
   }

@@ -1,4 +1,4 @@
-package io.tradingchain.api.account;
+package io.tradingchain.api.transfer;
 
 import java.util.List;
 

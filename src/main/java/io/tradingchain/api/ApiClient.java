@@ -143,8 +143,7 @@ public class ApiClient {
    */
   public ModifyPasswordResp modifyLoginPassword(ModifyPasswordReq req) throws Exception {
     final String path = "/api/resetPassword";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("P")), SECRET));
-    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ModifyPasswordResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("P")), SECRET)).castTo(ModifyPasswordResp.class);
   }
 
   /**
@@ -156,8 +155,7 @@ public class ApiClient {
    */
   public ModifyPasswordResp modifyTradePassword(ModifyPasswordReq req) throws Exception {
     final String path = "/api/resetPassword";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("T")), SECRET));
-    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ModifyPasswordResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("T")), SECRET)).castTo(ModifyPasswordResp.class);
   }
 
   /**
@@ -169,8 +167,7 @@ public class ApiClient {
    */
   public ResetPasswordResp resetLoginPassword(ResetPasswordReq req) throws Exception {
     final String path = "/api/forgetPassword";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("P")), SECRET));
-    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ResetPasswordResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("P")), SECRET)).castTo(ResetPasswordResp.class);
   }
 
   /**
@@ -182,8 +179,7 @@ public class ApiClient {
    */
   public ResetPasswordResp resetTradePassword(ResetPasswordReq req) throws Exception {
     final String path = "/api/forgetPassword";
-    HttpUtil.Response response = HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("T")), SECRET));
-    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(ResetPasswordResp.class);
+    return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req.setType("T")), SECRET)).castTo(ResetPasswordResp.class);
   }
 
   /**
@@ -241,6 +237,7 @@ public class ApiClient {
    * @return
    * @throws Exception
    */
+  @Deprecated
   public AssetTrustResp assetTrust(AssetTrustReq req) throws Exception {
     final String path = "/find/assetTrust";
     return HttpUtil.post(AnnotationUtil.buildReq(BASE_URL + path, setCommonParams(req), SECRET)).castTo(AssetTrustResp.class);

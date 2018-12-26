@@ -23,6 +23,7 @@ public class AssetTrustReq {
   @ReqParam(nullable = false, comment = "公钥")
   public String apiKey;
 
+  @Deprecated
   public AssetTrustReq(String username, String tradePassword, String privateKey, String backupKey, String assetName, String assetIssuer) {
     this.username = username;
     this.tradePassword = tradePassword;
@@ -30,6 +31,14 @@ public class AssetTrustReq {
     this.backupKey = backupKey;
     this.assetName = assetName;
     this.assetIssuer = assetIssuer;
+  }
+
+  public static final AssetTrustReq getInstanceByPrivateKey(String username, String tradePassword, String privateKey, String assetName, String assetIssuer) {
+    return new AssetTrustReq(username, tradePassword, privateKey, null, assetName, assetIssuer);
+  }
+
+  public static final AssetTrustReq getInstanceByBackupKey(String username, String tradePassword, String backupKey, String assetName, String assetIssuer) {
+    return new AssetTrustReq(username, tradePassword, null, backupKey, assetName, assetIssuer);
   }
 
   public AssetTrustReq setUsername(String username) {

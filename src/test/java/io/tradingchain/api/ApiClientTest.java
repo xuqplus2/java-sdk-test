@@ -41,6 +41,7 @@ public class ApiClientTest {
   public static final String SECRET = "yScdDvjCDJ906OlrIGIzITnOZVDKKEpm";
 
   // 测试用例用到的参数
+  private static final String USERNAME = "test_xx01234_dma";
   private static final String PASSWORD = "xx123456";
   private static final String TRADE_PASSWORD = "123456";
   private static final String BTC = "BTC";
@@ -54,13 +55,36 @@ public class ApiClientTest {
   }
 
   @Before
-  public void before() {
+  public void before() throws Exception {
     ApiClient.build(BASE_URL, API_KEY, PLATFORM, SECRET);
+    createOrResetMockUser();
+  }
+
+  /**
+   * 创建测试用户或重置测试用户密码
+   *
+   * @throws Exception
+   */
+  private void createOrResetMockUser() throws Exception {
+    IsUserExistsResp isUserExistsResp = ApiClient.getInstance()
+            .isUserExists(new IsUserExistsReq(USERNAME));
+    if (isUserExistsResp.data.exist) {
+      ApiClient.getInstance()
+              .resetLoginPassword(new ResetPasswordReq(USERNAME, PASSWORD));
+      ApiClient.getInstance()
+              .resetTradePassword(new ResetPasswordReq(USERNAME, TRADE_PASSWORD));
+    } else {
+      BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance()
+              .beforeRegister(new BeforeRegisterReq());
+      ApiClient.getInstance()
+              .register(new RegisterReq(USERNAME, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
+    }
   }
 
   @Test
   public void beforeRegister() throws Exception {
-    BeforeRegisterResp resp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
+    BeforeRegisterResp resp = ApiClient.getInstance()
+            .beforeRegister(new BeforeRegisterReq());
     System.err.println(JSON.toJSONString(resp));
     Assert.assertTrue(0 == resp.code); // 返回状态码0, 成功
     Assert.assertNotNull(resp.data.backupKey); // 两个私钥不为空
@@ -70,7 +94,8 @@ public class ApiClientTest {
   @Test
   public void register() throws Exception {
     String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
+    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance()
+            .beforeRegister(new BeforeRegisterReq());
 
     RegisterResp resp = ApiClient.getInstance()
             .register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
@@ -82,11 +107,8 @@ public class ApiClientTest {
 
   @Test
   public void login() throws Exception {
-    String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
-
-    LoginResp resp = ApiClient.getInstance().login(new LoginReq(username, PASSWORD));
+    LoginResp resp = ApiClient.getInstance()
+            .login(new LoginReq(USERNAME, PASSWORD));
     System.err.println(JSON.toJSONString(resp));
 
     Assert.assertTrue(0 == resp.code);
@@ -95,18 +117,15 @@ public class ApiClientTest {
 
   @Test
   public void isUserExists() throws Exception {
-    String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
-
-    IsUserExistsResp resp = ApiClient.getInstance().isUserExists(new IsUserExistsReq(username));
+    IsUserExistsResp resp = ApiClient.getInstance()
+            .isUserExists(new IsUserExistsReq(USERNAME));
     System.err.println(JSON.toJSONString(resp));
-
     Assert.assertTrue(0 == resp.code);
     Assert.assertTrue(resp.data.exist);
 
-    username = "one_hundred_percent_not_exists";
-    resp = ApiClient.getInstance().isUserExists(new IsUserExistsReq(username));
+    String username = "one_hundred_percent_not_exists";
+    resp = ApiClient.getInstance()
+            .isUserExists(new IsUserExistsReq(username));
     System.err.println(JSON.toJSONString(resp));
 
     Assert.assertTrue(0 == resp.code);
@@ -115,44 +134,50 @@ public class ApiClientTest {
 
   @Test
   public void modifyLoginPassword() throws Exception {
-    String username = getAUsername();
     String newPassword = "newPassword";
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
 
-    ModifyPasswordResp resp = ApiClient.getInstance().modifyLoginPassword(new ModifyPasswordReq(username, PASSWORD, newPassword));
+    // 修改密码
+    ModifyPasswordResp resp = ApiClient.getInstance()
+            .modifyLoginPassword(new ModifyPasswordReq(USERNAME, PASSWORD, newPassword));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertTrue(0 == resp.code);
     Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
 
-    LoginResp loginResp = ApiClient.getInstance().login(new LoginReq(username, newPassword));
+    // 新密码登录
+    LoginResp loginResp = ApiClient.getInstance()
+            .login(new LoginReq(USERNAME, newPassword));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertTrue(0 == resp.code);
     Assert.assertNotNull(loginResp.data);
 
-    resp = ApiClient.getInstance().modifyLoginPassword(new ModifyPasswordReq(username, PASSWORD, newPassword));
+    // 再修改失败
+    resp = ApiClient.getInstance()
+            .modifyLoginPassword(new ModifyPasswordReq(USERNAME, PASSWORD, newPassword));
     Assert.assertFalse(0 == resp.code);
     Assert.assertFalse("ok".equalsIgnoreCase(resp.msg));
   }
 
   @Test
   public void modifyTradePassword() throws Exception {
-    String username = getAUsername();
     String newPassword = "666666";
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
 
-    ModifyPasswordResp resp = ApiClient.getInstance().modifyTradePassword(new ModifyPasswordReq(username, TRADE_PASSWORD, newPassword));
+    // 修改交易密码
+    ModifyPasswordResp resp = ApiClient.getInstance()
+            .modifyTradePassword(new ModifyPasswordReq(USERNAME, TRADE_PASSWORD, newPassword));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertTrue(0 == resp.code);
     Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
 
-    CheckTradePasswordResp checkTradePasswordResp = ApiClient.getInstance().checkTradePassword(new CheckTradePasswordReq(username, newPassword));
+    // 校验新密码
+    CheckTradePasswordResp checkTradePasswordResp = ApiClient.getInstance()
+            .checkTradePassword(new CheckTradePasswordReq(USERNAME, newPassword));
     System.err.println(JSON.toJSONString(checkTradePasswordResp));
     Assert.assertTrue(0 == checkTradePasswordResp.code);
     Assert.assertTrue("ok".equalsIgnoreCase(checkTradePasswordResp.msg));
 
-    resp = ApiClient.getInstance().modifyTradePassword(new ModifyPasswordReq(username, TRADE_PASSWORD, newPassword));
+    // 再修改失败
+    resp = ApiClient.getInstance()
+            .modifyTradePassword(new ModifyPasswordReq(USERNAME, TRADE_PASSWORD, newPassword));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertFalse(0 == resp.code);
     Assert.assertFalse("ok".equalsIgnoreCase(resp.msg));
@@ -160,17 +185,18 @@ public class ApiClientTest {
 
   @Test
   public void resetLoginPassword() throws Exception {
-    String username = getAUsername();
     String newPassword = "newPassword";
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
 
-    ResetPasswordResp resp = ApiClient.getInstance().resetLoginPassword(new ResetPasswordReq(username, newPassword));
+    // 重置密码
+    ResetPasswordResp resp = ApiClient.getInstance()
+            .resetLoginPassword(new ResetPasswordReq(USERNAME, newPassword));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertTrue(0 == resp.code);
     Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
 
-    LoginResp loginResp = ApiClient.getInstance().login(new LoginReq(username, newPassword));
+    // 新密码登录
+    LoginResp loginResp = ApiClient.getInstance()
+            .login(new LoginReq(USERNAME, newPassword));
     System.err.println(JSON.toJSONString(loginResp));
     Assert.assertTrue(0 == loginResp.code);
     Assert.assertNotNull(loginResp.data);
@@ -178,17 +204,18 @@ public class ApiClientTest {
 
   @Test
   public void resetTradePassword() throws Exception {
-    String username = getAUsername();
     String newPassword = "666666";
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
 
-    ResetPasswordResp resp = ApiClient.getInstance().resetTradePassword(new ResetPasswordReq(username, newPassword));
+    // 重置交易密码
+    ResetPasswordResp resp = ApiClient.getInstance()
+            .resetTradePassword(new ResetPasswordReq(USERNAME, newPassword));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertTrue(0 == resp.code);
     Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
 
-    CheckTradePasswordResp checkTradePasswordResp = ApiClient.getInstance().checkTradePassword(new CheckTradePasswordReq(username, newPassword));
+    // 校验新交易密码
+    CheckTradePasswordResp checkTradePasswordResp = ApiClient.getInstance()
+            .checkTradePassword(new CheckTradePasswordReq(USERNAME, newPassword));
     System.err.println(checkTradePasswordResp);
     Assert.assertTrue(0 == checkTradePasswordResp.code);
     Assert.assertTrue("ok".equalsIgnoreCase(checkTradePasswordResp.msg));
@@ -196,11 +223,8 @@ public class ApiClientTest {
 
   @Test
   public void checkTradePassword() throws Exception {
-    String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
-
-    CheckTradePasswordResp resp = ApiClient.getInstance().checkTradePassword(new CheckTradePasswordReq(username, TRADE_PASSWORD));
+    CheckTradePasswordResp resp = ApiClient.getInstance()
+            .checkTradePassword(new CheckTradePasswordReq(USERNAME, TRADE_PASSWORD));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertTrue(0 == resp.code);
     Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
@@ -209,25 +233,30 @@ public class ApiClientTest {
   @Test
   public void resetKey() throws Exception {
     String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
+    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance()
+            .beforeRegister(new BeforeRegisterReq());
+    RegisterResp registerResp = ApiClient.getInstance()
+            .register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
     String backupKey = registerResp.data.backupKey;
     String privateKey = registerResp.data.privateKey;
 
-    ResetKeyResp resp = ApiClient.getInstance().resetKey(new ResetKeyReq(username, TRADE_PASSWORD, backupKey));
+    ResetKeyResp resp = ApiClient.getInstance()
+            .resetKey(new ResetKeyReq(username, TRADE_PASSWORD, backupKey));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertTrue(0 == resp.code);
     Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
     String newPrivateKey = resp.data.key;
     Assert.assertNotNull(newPrivateKey);
 
-    resp = ApiClient.getInstance().resetKey(new ResetKeyReq(username, TRADE_PASSWORD, privateKey));
+    resp = ApiClient.getInstance()
+            .resetKey(new ResetKeyReq(username, TRADE_PASSWORD, privateKey));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertFalse(0 == resp.code);
     Assert.assertFalse("ok".equalsIgnoreCase(resp.msg));
     Assert.assertNull(resp.data);
 
-    resp = ApiClient.getInstance().resetKey(new ResetKeyReq(username, TRADE_PASSWORD, newPrivateKey));
+    resp = ApiClient.getInstance()
+            .resetKey(new ResetKeyReq(username, TRADE_PASSWORD, newPrivateKey));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertTrue(0 == resp.code);
     Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
@@ -237,11 +266,8 @@ public class ApiClientTest {
 
   @Test
   public void getLoginKeys() throws Exception {
-    String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
-
-    GetLoginKeysResp resp = ApiClient.getInstance().getLoginKeys(new GetLoginKeysReq(username, PASSWORD));
+    GetLoginKeysResp resp = ApiClient.getInstance()
+            .getLoginKeys(new GetLoginKeysReq(USERNAME, PASSWORD));
     System.err.println(JSON.toJSONString(resp));
     Assert.assertTrue(205 == resp.code);
     Assert.assertTrue("已设置过拜占庭令牌,不可再次设置".equalsIgnoreCase(resp.msg));
@@ -249,46 +275,51 @@ public class ApiClientTest {
 
   @Test
   public void bindLoginKeys() throws Exception {
-    String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
-
-    BindLoginKeysResp resp = ApiClient.getInstance().bindLoginKeys(new BindLoginKeysReq(username, PASSWORD, "xx", "xx"));
+    BindLoginKeysResp resp = ApiClient.getInstance()
+            .bindLoginKeys(new BindLoginKeysReq(USERNAME, PASSWORD, "xx", "xx"));
     System.err.println(JSON.toJSONString(resp));
   }
 
   @Test
   public void assetTrust() throws Exception {
     String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
+    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance()
+            .beforeRegister(new BeforeRegisterReq());
+    RegisterResp registerResp = ApiClient.getInstance()
+            .register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
     String backupKey = registerResp.data.backupKey;
     String privateKey = registerResp.data.privateKey;
 
-    AssetTrustResp resp = ApiClient.getInstance().assetTrust(new AssetTrustReq(username, TRADE_PASSWORD, privateKey, null, USDT, ISSUER));
+    AssetTrustResp resp = ApiClient.getInstance()
+            .assetTrust(new AssetTrustReq(username, TRADE_PASSWORD, privateKey, null, USDT, ISSUER));
     System.err.println(JSON.toJSONString(resp));
 
-    resp = ApiClient.getInstance().assetTrust(AssetTrustReq.getInstanceByBackupKey(username, TRADE_PASSWORD, backupKey, USDT, ISSUER));
+    resp = ApiClient.getInstance()
+            .assetTrust(AssetTrustReq.getInstanceByBackupKey(username, TRADE_PASSWORD, backupKey, USDT, ISSUER));
     System.err.println(JSON.toJSONString(resp));
 
-    resp = ApiClient.getInstance().assetTrust(AssetTrustReq.getInstanceByPrivateKey(username, TRADE_PASSWORD, privateKey, USDT, ISSUER));
+    resp = ApiClient.getInstance()
+            .assetTrust(AssetTrustReq.getInstanceByPrivateKey(username, TRADE_PASSWORD, privateKey, USDT, ISSUER));
     System.err.println(JSON.toJSONString(resp));
   }
 
   @Test
   public void assetsTrust() throws Exception {
     String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance().beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance().register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
+    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance()
+            .beforeRegister(new BeforeRegisterReq());
+    RegisterResp registerResp = ApiClient.getInstance()
+            .register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
     String backupKey = registerResp.data.backupKey;
     String privateKey = registerResp.data.privateKey;
 
-    AssetsTrustResp resp = ApiClient.getInstance().assetsTrust(
-            new AssetsTrustReq(username, privateKey)
-                    .addAsset(new AssetPair(USDT, ISSUER))
-                    .addAsset(new AssetPair(BTC, ISSUER))
-                    .addAsset(new AssetPair(TC, ""))
-    );
+    AssetsTrustResp resp = ApiClient.getInstance()
+            .assetsTrust(
+                    new AssetsTrustReq(username, privateKey)
+                            .addAsset(new AssetPair(USDT, ISSUER))
+                            .addAsset(new AssetPair(BTC, ISSUER))
+                            .addAsset(new AssetPair(TC, ""))
+            );
     System.err.println(JSON.toJSONString(resp));
 
     Assert.assertTrue(0 == resp.code);
@@ -336,50 +367,100 @@ public class ApiClientTest {
   @Test
   public void accountDetails() throws Exception {
     AccountDetailsResp resp = ApiClient.getInstance()
-            .accountDetails(new AccountDetailsReq("test", "test", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+            .accountDetails(new AccountDetailsReq(USERNAME, PASSWORD, USDT, ISSUER));
     System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
+    Assert.assertNotNull(resp.data);
 
-    System.err.println(JSON.toJSONString(ApiClient.getInstance().accountDetails(new AccountDetailsReq("test", "test"))));
+    resp = ApiClient.getInstance()
+            .accountDetails(new AccountDetailsReq(USERNAME, PASSWORD));
+    System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
+    Assert.assertNotNull(resp.data);
   }
 
   @Test
   public void isKeyBelongTo() throws Exception {
+    // 注册全新用户
+    String username = getAUsername();
+    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance()
+            .beforeRegister(new BeforeRegisterReq());
+    RegisterResp registerResp = ApiClient.getInstance()
+            .register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
+    String backupKey = registerResp.data.backupKey;
+    String privateKey = registerResp.data.privateKey;
+
+    // 判断私钥是否是用户的
     IsKeyBelongToResp resp = ApiClient.getInstance()
-            .isKeyBelongTo(new IsKeyBelongToReq("test", "test", "xx"));
+            .isKeyBelongTo(new IsKeyBelongToReq(username, PASSWORD, privateKey));
     System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
+    Assert.assertTrue(resp.data.belong);
+
+    // 判断私钥是否是用户的
+    resp = ApiClient.getInstance()
+            .isKeyBelongTo(new IsKeyBelongToReq(username, PASSWORD, backupKey));
+    System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
+    Assert.assertTrue(resp.data.belong);
+
+    // 用错误的私钥测试
+    resp = ApiClient.getInstance()
+            .isKeyBelongTo(new IsKeyBelongToReq(username, PASSWORD, "xx"));
+    System.err.println(JSON.toJSONString(resp));
+    Assert.assertFalse(0 == resp.code);
+    Assert.assertFalse("ok".equalsIgnoreCase(resp.msg));
+    Assert.assertFalse(resp.data.belong);
   }
 
   @Test
   public void accountValuations() throws Exception {
     AccountValuationsResp resp = ApiClient.getInstance()
-            .accountValuations(new AccountValuationsReq("test", "test", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+            .accountValuations(new AccountValuationsReq(USERNAME, PASSWORD, USDT, ISSUER));
     System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
+    Assert.assertNotNull(resp.total);
 
-    System.err.println(JSON.toJSONString(ApiClient.getInstance().accountValuations(
-            new AccountValuationsReq("test", "test", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG")
-                    .addAsset(new AssetPair("XRP", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"))
-                    .addAsset(new AssetPair("BTC", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"))
-    )));
+    resp = ApiClient.getInstance()
+            .accountValuations(
+                    new AccountValuationsReq(USERNAME, PASSWORD, USDT, ISSUER)
+                            .addAsset(new AssetPair(XLM, ISSUER))
+                            .addAsset(new AssetPair(BTC, ISSUER))
+            );
+    System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
+    Assert.assertNotNull(resp.total);
   }
 
   @Test
   public void assetAmount() throws Exception {
     AssetAmountResp resp = ApiClient.getInstance()
-            .assetAmount(new AssetAmountReq("test", "test", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG"));
+            .assetAmount(new AssetAmountReq(USERNAME, PASSWORD, USDT, ISSUER));
     System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
+    Assert.assertTrue(0 == resp.amount.intValue());
   }
 
   @Test
   public void userTradesHistory() throws Exception {
     UserTradesHistoryResp resp = ApiClient.getInstance()
-            .userTradesHistory(new UserTradesHistoryReq("15921863921", "12345678", 200));
+            .userTradesHistory(new UserTradesHistoryReq(USERNAME, PASSWORD));
     System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
   }
 
   @Test
   public void userTransferHistory() throws Exception {
     UserTransferHistoryResp resp = ApiClient.getInstance()
-            .userTransferHistory(new UserTransferHistoryReq("15921863921", "12345678", 200));
+            .userTransferHistory(new UserTransferHistoryReq(USERNAME, TRADE_PASSWORD, 200));
     System.err.println(JSON.toJSONString(resp));
   }
 
@@ -420,21 +501,23 @@ public class ApiClientTest {
 
   @Test
   public void chargeCoin() throws Exception {
-    ChargeCoinResp resp = ApiClient.getInstance().chargeCoin(
-            new ChargeCoinReq("15921863921", "12345678", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "15921863921", "test", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "xx")
-                    .setMemo("memo")
-                    .setGateWay(BASE_URL)
-    );
+    ChargeCoinResp resp = ApiClient.getInstance()
+            .chargeCoin(
+                    new ChargeCoinReq("15921863921", "12345678", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "15921863921", "test", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "xx")
+                            .setMemo("memo")
+                            .setGateWay(BASE_URL)
+            );
     System.err.println(JSON.toJSONString(resp));
   }
 
   @Test
   public void withdrawCoin() throws Exception {
-    WithdrawCoinResp resp = ApiClient.getInstance().withdrawCoin(
-            new WithdrawCoinReq("test", "test", "test", "test", "test", "test", "test", "1", "0.0001", "test", "test", "test")
-                    .setMemo("memo")
-                    .setGateWay(BASE_URL)
-    );
+    WithdrawCoinResp resp = ApiClient.getInstance()
+            .withdrawCoin(
+                    new WithdrawCoinReq("test", "test", "test", "test", "test", "test", "test", "1", "0.0001", "test", "test", "test")
+                            .setMemo("memo")
+                            .setGateWay(BASE_URL)
+            );
     System.err.println(JSON.toJSONString(resp));
   }
 
@@ -468,15 +551,17 @@ public class ApiClientTest {
 
   @Test
   public void doPathPaymentFreightCollect() throws Exception {
-    DoPathPaymentResp resp = ApiClient.getInstance().doPathPaymentFreightCollect(DoPathPaymentReq
-            .getInstanceByBackupKey("test", "test", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "xxxx"));
+    DoPathPaymentResp resp = ApiClient.getInstance()
+            .doPathPaymentFreightCollect(DoPathPaymentReq
+                    .getInstanceByBackupKey("test", "test", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "xxxx"));
     System.err.println(JSON.toJSONString(resp));
   }
 
   @Test
   public void doPathPaymentChargeAdvance() throws Exception {
-    DoPathPaymentResp resp = ApiClient.getInstance().doPathPaymentChargeAdvance(DoPathPaymentReq
-            .getInstanceByBackupKey("test", "test", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "xxxx"));
+    DoPathPaymentResp resp = ApiClient.getInstance()
+            .doPathPaymentChargeAdvance(DoPathPaymentReq
+                    .getInstanceByBackupKey("test", "test", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "0.001", "USDT", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "GBFB5JCHH2KPS7TBYB3GAU6Q43S4KLVDIKLWEE3KQQHWETYKWNZY4GXG", "xxxx"));
     System.err.println(JSON.toJSONString(resp));
   }
 

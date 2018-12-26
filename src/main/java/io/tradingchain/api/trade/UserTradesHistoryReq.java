@@ -37,7 +37,7 @@ public class UserTradesHistoryReq {
   }
 
   public UserTradesHistoryReq(String username, String password) {
-    this(username, password, null);
+    this(username, password, 200);
   }
 
   public UserTradesHistoryReq setUsername(String username) {

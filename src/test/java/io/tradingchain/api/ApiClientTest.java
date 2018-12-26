@@ -44,6 +44,10 @@ public class ApiClientTest {
   private static final String USERNAME = "test_xx01234_dma";
   private static final String PASSWORD = "xx123456";
   private static final String TRADE_PASSWORD = "123456";
+  private static final String MOCK_USER_USERNAME = "test_xx01234_nba";
+  private static final String MOCK_USER_PUBLIC_KEY = "GALBWDR52HZIDKNEE4GTTBBXUUJDROBTMFM6ONZ26BTXLEKRBDRSHPNC";
+  private static final String MOCK_USER_BACKUP_KEY = "SDPTX4A547RTLE3DHZKC3B5WLCGUUTXHQAHHD24DY4VIAWTNOUBXGVXP";
+  private static final String MOCK_USER_PRIVATE_KEY = "SAKC3P3IOAGK2TBB3UNTWIMZDU3CIFBHIRFOPVK3VAR7ELWXRQJURKPT";
   private static final String BTC = "BTC";
   private static final String TC = "TC";
   private static final String XLM = "XLM";
@@ -282,46 +286,35 @@ public class ApiClientTest {
 
   @Test
   public void assetTrust() throws Exception {
-    String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance()
-            .beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance()
-            .register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
-    String backupKey = registerResp.data.backupKey;
-    String privateKey = registerResp.data.privateKey;
-
     AssetTrustResp resp = ApiClient.getInstance()
-            .assetTrust(new AssetTrustReq(username, TRADE_PASSWORD, privateKey, null, USDT, ISSUER));
+            .assetTrust(new AssetTrustReq(MOCK_USER_USERNAME, TRADE_PASSWORD, MOCK_USER_PRIVATE_KEY, null, USDT, ISSUER));
     System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
 
     resp = ApiClient.getInstance()
-            .assetTrust(AssetTrustReq.getInstanceByBackupKey(username, TRADE_PASSWORD, backupKey, USDT, ISSUER));
+            .assetTrust(AssetTrustReq.getInstanceByBackupKey(MOCK_USER_USERNAME, TRADE_PASSWORD, MOCK_USER_PRIVATE_KEY, USDT, ISSUER));
     System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
 
     resp = ApiClient.getInstance()
-            .assetTrust(AssetTrustReq.getInstanceByPrivateKey(username, TRADE_PASSWORD, privateKey, USDT, ISSUER));
+            .assetTrust(AssetTrustReq.getInstanceByPrivateKey(MOCK_USER_USERNAME, TRADE_PASSWORD, MOCK_USER_BACKUP_KEY, USDT, ISSUER));
     System.err.println(JSON.toJSONString(resp));
+    Assert.assertTrue(0 == resp.code);
+    Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
   }
 
   @Test
   public void assetsTrust() throws Exception {
-    String username = getAUsername();
-    BeforeRegisterResp beforeRegisterResp = ApiClient.getInstance()
-            .beforeRegister(new BeforeRegisterReq());
-    RegisterResp registerResp = ApiClient.getInstance()
-            .register(new RegisterReq(username, PASSWORD, TRADE_PASSWORD, beforeRegisterResp.data.privateKey, beforeRegisterResp.data.backupKey));
-    String backupKey = registerResp.data.backupKey;
-    String privateKey = registerResp.data.privateKey;
-
     AssetsTrustResp resp = ApiClient.getInstance()
             .assetsTrust(
-                    new AssetsTrustReq(username, privateKey)
+                    new AssetsTrustReq(MOCK_USER_USERNAME, MOCK_USER_PRIVATE_KEY)
                             .addAsset(new AssetPair(USDT, ISSUER))
                             .addAsset(new AssetPair(BTC, ISSUER))
                             .addAsset(new AssetPair(TC, ""))
             );
     System.err.println(JSON.toJSONString(resp));
-
     Assert.assertTrue(0 == resp.code);
     Assert.assertTrue("ok".equalsIgnoreCase(resp.msg));
   }
